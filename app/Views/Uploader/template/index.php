@@ -14,15 +14,14 @@
     <!-- Custom fonts for this template-->
     <link href="<?= base_url() ?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url() ?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Tambahkan ikon Font Awesome -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
 
     
     
@@ -47,7 +46,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?= $this->include('template/topbar'); ?>
+                <?= $this->include('Uploader/template/topbar'); ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -114,6 +113,7 @@
     <script src="<?= base_url() ?>/assets/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="<?= base_url() ?>/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+
     <!-- Page level custom scripts -->
     <script src="<?= base_url() ?>/assets/js/demo/chart-area-demo.js"></script>
     <script src="<?= base_url() ?>/assets/js/demo/chart-pie-demo.js"></script>
@@ -159,5 +159,48 @@
         .card:hover {
             transform: translateY(-5px);
         }
+        .upload-form {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .upload-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .upload-form input[type="file"] {
+            margin-bottom: 20px;
+        }
+        .upload-form input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        
+        }
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        option {
+            background-color: #f5f5f5;
+            color: #333;
+        }
     </style>
+       <script>
+        // Initialize TinyMCE with your API Key
+        tinymce.init({
+            selector: '#documentContent', // ID of the textarea element
+            apiKey: 'hgys0rz09d359u4mdu9g544jc35j7ixlp04uv0k4a7pbsxor', // Replace with your API Key
+            plugins: 'link image code',
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image',
+            height: 300
+        });
+    </script>
 </html>

@@ -18,30 +18,44 @@
                 <li class="nav-item"><a class="nav-link" href="#">Pusat Pengetahuan</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Pusat Bantuan</a></li>
             </ul>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+            <button type="button" class="btn btn-primary" id="loginButton">Login</button>
         </div>
     </div>
 </nav>
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Enter your username">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter your password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
+<script>
+        document.getElementById('loginButton').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Login',
+                html:
+                    '<input type="text" id="username" class="swal2-input" placeholder="Username">' +
+                    '<div class="password-container">' +
+                    '<input type="password" id="password" class="swal2-input password-input" placeholder="Password">' +
+                    '<br>' +
+                    '<input type="checkbox" id="showPassword" class="show-password"> <label for="showPassword">Lihat Password</label>' +
+                    '</div>',
+                focusConfirm: false,
+                didOpen: () => {
+                    const passwordInput = Swal.getPopup().querySelector('.password-input');
+                    const showPasswordCheckbox = Swal.getPopup().querySelector('.show-password');
+
+                    showPasswordCheckbox.addEventListener('change', () => {
+                        passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
+                    });
+                },
+                preConfirm: () => {
+                    const username = Swal.getPopup().querySelector('#username').value;
+                    const passwordInput = Swal.getPopup().querySelector('#password');
+                    const password = passwordInput.value;
+
+                    // Di sini Anda dapat menambahkan logika untuk memeriksa kredensial
+                    // Contoh: if (username === 'admin' && password === 'password') { ... }
+                    // Jika berhasil, tampilkan pesan sukses, jika gagal, tampilkan pesan error
+                    Swal.fire('Logged In', 'Anda telah login', 'success');
+                }
+            });
+        });
+    </script>
+
+
+

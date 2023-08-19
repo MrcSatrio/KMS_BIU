@@ -33,6 +33,10 @@ $routes->get('/', 'Home::index');
 $routes->get('knowledge', 'Home::knowledge');
 
 
+//Uploader
+$routes->get('uploader', 'Uploader\Index::index');
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
