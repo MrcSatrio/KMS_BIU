@@ -31,6 +31,41 @@
 
     </div>
 </nav>
+<script>
+        document.getElementById('registerButton').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Register',
+                html:
+                    '<input type="email" id="email" class="swal2-input" placeholder="Email">' +
+                    '<input type="text" id="nama" class="swal2-input" placeholder="Full Name">' +
+                    '<input type="text" id="username" class="swal2-input" placeholder="Username">' +
+                    '<div class="password-container">' +
+                    '<input type="password" id="password" class="swal2-input password-input" placeholder="Password">' +
+                    '<br>' +
+                    '<input type="checkbox" id="showPassword" class="show-password"> <label for="showPassword">Lihat Password</label>' +
+                    '</div>',
+                focusConfirm: false,
+                didOpen: () => {
+                    const passwordInput = Swal.getPopup().querySelector('.password-input');
+                    const showPasswordCheckbox = Swal.getPopup().querySelector('.show-password');
+
+                    showPasswordCheckbox.addEventListener('change', () => {
+                        passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
+                    });
+                },
+                preConfirm: () => {
+                    const username = Swal.getPopup().querySelector('#username').value;
+                    const passwordInput = Swal.getPopup().querySelector('#password');
+                    const password = passwordInput.value;
+
+                    // Di sini Anda dapat menambahkan logika untuk memeriksa kredensial
+                    // Contoh: if (username === 'admin' && password === 'password') { ... }
+                    // Jika berhasil, tampilkan pesan sukses, jika gagal, tampilkan pesan error
+                    Swal.fire('Logged In', 'Anda telah login', 'success');
+                }
+            });
+        });
+    </script>
 
 <script>
         document.getElementById('loginButton').addEventListener('click', function() {
