@@ -38,10 +38,10 @@ $routes->post('auth/register', 'Auth\Auth::register');
 $routes->get('logout', 'Auth\Auth::logout');
 
 //admin
-$routes->get('admin/dashboard', 'Uploader\Index::index');
+$routes->get('admin/dashboard', 'Admin\Index::index');
 
 //Uploader
-$routes->get('uploader', 'Uploader\Index::index');
+$routes->get('uploader/dashboard', 'Uploader\Index::index');
 
 
 /*
