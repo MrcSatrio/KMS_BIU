@@ -21,7 +21,9 @@
 </nav>
 <script>
     // Event listener untuk tombol logout
-    document.getElementById('logoutButton').addEventListener('click', function() {
+    document.getElementById('logoutButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Mencegah aksi default link
+        
         // Tampilkan SweetAlert konfirmasi
         Swal.fire({
             title: 'Logout',
@@ -34,9 +36,8 @@
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Di sini Anda dapat menambahkan logika untuk melakukan logout
-                // Contoh: window.location.href = 'logout.php';
-                Swal.fire('Logged Out', 'Anda telah logout', 'success');
+                // Jika konfirmasi di SweetAlert diterima, arahkan ke URL logout
+                window.location.href = "<?= base_url('logout'); ?>";
             }
         });
     });

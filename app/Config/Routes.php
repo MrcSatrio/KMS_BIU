@@ -29,13 +29,15 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->get('knowledge', 'Home::knowledge');
+$routes->get('/', 'Public\Index::index');
+$routes->get('knowledge', 'Public\index::knowledge');
 
 //autentikasi
-$routes->post('/login', 'Auth\Auth::login');
+$routes->post('auth/login', 'Auth\Auth::login');
+$routes->get('logout', 'Auth\Auth::logout');
 
-
+//admin
+$routes->get('admin/dashboard', 'Uploader\Index::index');
 
 //Uploader
 $routes->get('uploader', 'Uploader\Index::index');

@@ -8,6 +8,7 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
+use App\Filters\RoleFilter;
 
 class Filters extends BaseConfig
 {
@@ -21,6 +22,7 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'roleFilter'    => RoleFilter::class,
     ];
 
     /**
@@ -28,15 +30,25 @@ class Filters extends BaseConfig
      * applied before and after every request.
      */
     public array $globals = [
-        'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
+        'roleFilter' => [
+            'before' => [
+                'csrf',
+                '/admin/*',
+                '/keuangan/*',
+                '/operator/*',
+                '/user/*'
+            ]
         ],
+        // 'before' => [
+        //     'honeypot',
+        //     'csrf',
+        //     'invalidchars',
+        //     'roleFilter'
+        // ],
         'after' => [
             'toolbar',
-            // 'honeypot',
-            // 'secureheaders',
+            'honeypot',
+            'secureheaders'
         ],
     ];
 
@@ -49,7 +61,7 @@ class Filters extends BaseConfig
      *
      * If you use this, you should disable auto-routing because auto-routing
      * permits any HTTP method to access a controller. Accessing the controller
-     * with a method you don't expect could bypass the filter.
+     * with a method you don’t expect could bypass the filter.
      */
     public array $methods = [];
 

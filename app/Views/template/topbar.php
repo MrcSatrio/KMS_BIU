@@ -25,7 +25,8 @@
     </ul>
     
     <button type="button" class="btn btn-secondary" id="registerButton">Register</button>
-    <button type="button" class="btn btn-primary" id="loginButton">Login</button>
+    <button type="button" class="btn btn-primary" id="loginButton" data-toggle="modal" data-target="#loginModal">Login</button>
+
 </div>
 
 
@@ -33,91 +34,29 @@
 </nav>
 
 <!--ini adalah modal untuk register dan login -->
-<script>
-        document.getElementById('registerButton').addEventListener('click', function() {
-            Swal.fire({
-                title: 'Register',
-                html:
-                    '<input type="email" id="email" class="swal2-input" placeholder="Email">' +
-                    '<input type="text" id="nama" class="swal2-input" placeholder="Full Name">' +
-                    '<input type="text" id="username" class="swal2-input" placeholder="Username">' +
-                    '<div class="password-container">' +
-                    '<input type="password" id="password" class="swal2-input password-input" placeholder="Password">' +
-                    '<br>' +
-                    '<input type="checkbox" id="showPassword" class="show-password"> <label for="showPassword">Lihat Password</label>' +
-                    '</div>',
-                focusConfirm: false,
-                didOpen: () => {
-                    const passwordInput = Swal.getPopup().querySelector('.password-input');
-                    const showPasswordCheckbox = Swal.getPopup().querySelector('.show-password');
-
-                    showPasswordCheckbox.addEventListener('change', () => {
-                        passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
-                    });
-                },
-                preConfirm: () => {
-                    const username = Swal.getPopup().querySelector('#username').value;
-                    const passwordInput = Swal.getPopup().querySelector('#password');
-                    const password = passwordInput.value;
-
-                    // Di sini Anda dapat menambahkan logika untuk memeriksa kredensial
-                    // Contoh: if (username === 'admin' && password === 'password') { ... }
-                    // Jika berhasil, tampilkan pesan sukses, jika gagal, tampilkan pesan error
-                    Swal.fire('Logged In', 'Anda telah login', 'success');
-                }
-            });
-        });
-    </script>
-
-<script>
-    document.getElementById('loginButton').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Login',
-            html:
-                '<form id="loginForm" action="/login" method="POST">' +
-                '<input type="text" id="username" name="username" class="swal2-input" placeholder="Username">' +
-                '<div class="password-container">' +
-                '<input type="password" id="password" name="password" class="swal2-input password-input" placeholder="Password">' +
-                '<br>' +
-                '<input type="checkbox" id="showPassword" class="show-password"> <label for="showPassword">Lihat Password</label>' +
-                '</div>' +
-                '</form>',
-            focusConfirm: false,
-            didOpen: () => {
-                const passwordInput = Swal.getPopup().querySelector('.password-input');
-                const showPasswordCheckbox = Swal.getPopup().querySelector('.show-password');
-
-                showPasswordCheckbox.addEventListener('change', () => {
-                    passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
-                });
-            },
-            preConfirm: () => {
-                const form = Swal.getPopup().querySelector('#loginForm');
-                const formData = new FormData(form);
-
-                // Kirim data menggunakan fetch atau XMLHttpRequest
-                fetch('/login', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Menggunakan respons dari server untuk menampilkan pesan
-                    if (data.success) {
-                        Swal.fire('Logged In', 'Anda telah login', 'success');
-                    } else {
-                        Swal.fire('Login Failed', 'Username atau password salah', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Error', 'Terjadi kesalahan saat melakukan login', 'error');
-                });
-            }
-        });
-    });
-</script>
-
-
-
-
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('auth/login') ?>" method="post">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

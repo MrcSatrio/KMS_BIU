@@ -15,7 +15,7 @@ class RoleFilter implements FilterInterface
             return redirect()->to('/');
         } else {
             $role = $session->get('id_role');
-            if ($role == 1 && strpos($request->uri->getPath(), 'Admin') === false) {
+            if ($role == 1 && strpos($request->uri->getPath(), 'admin') === false) {
                 return redirect()->to('/admin/dashboard');
             } elseif ($role == 2 && strpos($request->uri->getPath(), 'keuangan') === false) {
                 return redirect()->to('/keuangan/dashboard');
