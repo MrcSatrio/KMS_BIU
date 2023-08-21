@@ -34,6 +34,7 @@ $routes->get('knowledge', 'Public\index::knowledge');
 
 //autentikasi
 $routes->post('auth/login', 'Auth\Auth::login');
+$routes->post('auth/register', 'Auth\Auth::register');
 $routes->get('logout', 'Auth\Auth::logout');
 
 //admin

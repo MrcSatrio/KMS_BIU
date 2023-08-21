@@ -6,7 +6,11 @@ class index extends BaseController
 {
     public function index()
     {
-        return view('public/index');
+        $data =
+        [
+            'title' => 'Parking Management System'
+        ]; 
+        return view('public/index', $data);
     }
 
     public function knowledge()
