@@ -9,6 +9,6 @@ class Index extends BaseController
 {
     public function index()
     {
-        return view('uploader/index');
+        return view('admin/index');
     }
 }
