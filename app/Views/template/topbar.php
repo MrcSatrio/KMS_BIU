@@ -10,16 +10,25 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <style>
+    .btn {
+        margin-right: 10px; /* Mengatur jarak pada tombol kanan */
+    }
+</style>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Beranda</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Pelatihan</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Pusat Pengetahuan</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Pusat Bantuan</a></li>
-            </ul>
-            <button type="button" class="btn btn-primary" id="loginButton">Login</button>
-        </div>
+<div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="#">Beranda</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Pelatihan</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Pusat Pengetahuan</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Pusat Bantuan</a></li>
+    </ul>
+    
+    <button type="button" class="btn btn-secondary" id="registerButton">Registrasi</button>
+    <button type="button" class="btn btn-primary" id="loginButton">Login</button>
+</div>
+
+
     </div>
 </nav>
 
