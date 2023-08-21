@@ -29,8 +29,8 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Public\Index::index');
-$routes->get('knowledge', 'Public\index::knowledge');
+$routes->get('/', 'Global\Index::index');
+$routes->get('knowledge', 'Global\index::knowledge');
 
 //autentikasi
 $routes->post('auth/login', 'Auth\Auth::login');

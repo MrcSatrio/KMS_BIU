@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Public;
+namespace App\Controllers\Global;
 use \App\Controllers\BaseController;
 class index extends BaseController
 {
