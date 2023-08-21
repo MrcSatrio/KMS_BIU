@@ -32,6 +32,10 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->get('knowledge', 'Home::knowledge');
 
+//autentikasi
+$routes->post('/login', 'Auth\Auth::login');
+
+
 
 //Uploader
 $routes->get('uploader', 'Uploader\Index::index');
