@@ -39,6 +39,7 @@ $routes->get('logout', 'Auth\Auth::logout');
 
 //admin
 $routes->get('admin/dashboard', 'Admin\Index::index');
+$routes->get('admin/account', 'Admin\Account::read');
 
 //Uploader
 $routes->get('uploader/dashboard', 'Uploader\Index::index');
