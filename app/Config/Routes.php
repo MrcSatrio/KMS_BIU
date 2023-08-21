@@ -38,11 +38,17 @@ $routes->post('auth/register', 'Auth\Auth::register');
 $routes->get('logout', 'Auth\Auth::logout');
 
 //admin
-$routes->get('admin/dashboard', 'Admin\Index::index');
-$routes->get('admin/account', 'Admin\Account::read');
+$routes->group('admin', ['filter' => 'roleFilter'], function ($routes) {
+    $routes->get('dashboard', 'Admin\Index::index');
+    $routes->get('account', 'Admin\Account::read');
+});
 
-//Uploader
-$routes->get('uploader/dashboard', 'Uploader\Index::index');
+
+$routes->group('uploader', ['filter' => 'roleFilter'], function ($routes) {
+    $routes->get('dashboard', 'Uploader\Index::index');
+});
+
+
 
 
 /*

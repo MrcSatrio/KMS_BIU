@@ -11,18 +11,14 @@ class RoleFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         $session = session();
-        if (!$session->get('username')) {
-            return redirect()->to('/');
+        if (!$session->get('id_role')) {
+            return redirect()->to(base_url('/'));
         } else {
             $role = $session->get('id_role');
             if ($role == 1 && strpos($request->uri->getPath(), 'admin') === false) {
-                return redirect()->to('/admin/dashboard');
-            } elseif ($role == 2 && strpos($request->uri->getPath(), 'keuangan') === false) {
-                return redirect()->to('/keuangan/dashboard');
-            } elseif ($role == 3 && strpos($request->uri->getPath(), 'operator') === false) {
-                return redirect()->to('/operator/dashboard');
-            } elseif ($role == 4 && strpos($request->uri->getPath(), 'user') === false) {
-                return redirect()->to('/user/dashboard');
+                return redirect()->to(base_url('admin/dashboard'));
+            } elseif ($role == 2 && strpos($request->uri->getPath(), 'uploader') === false) {
+                return redirect()->to(base_url('uploader/dashboard'));
             }
         }
     }
