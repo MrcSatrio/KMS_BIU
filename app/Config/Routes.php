@@ -46,6 +46,8 @@ $routes->group('admin', ['filter' => 'roleFilter'], function ($routes) {
 
 $routes->group('uploader', ['filter' => 'roleFilter'], function ($routes) {
     $routes->get('dashboard', 'Uploader\Index::index');
+    $routes->get('upload', 'Uploader\Index::upload');
+    
 });
 
 

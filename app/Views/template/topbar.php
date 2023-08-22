@@ -33,8 +33,9 @@
     </div>
 </nav>
 
-<!--ini adalah modal untuk register dan login -->
+<!--ini adalah modal untuk register -->
 <!-- Modal -->
+<!-- Modal untuk registrasi -->
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -47,20 +48,27 @@
             <div class="modal-body">
                 <form action="<?= base_url('auth/register') ?>" method="post">
                     <div class="form-group">
-                        <label for="username">FullName</label>
+                        <label for="name">Full Name</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Email</label>
+                        <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Username</label>
+                        <label for="username">Username</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" name="password" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-eye" id="togglePassword"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>
@@ -68,6 +76,8 @@
         </div>
     </div>
 </div>
+
+<!-- Modal untuk login -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -80,12 +90,19 @@
             <div class="modal-body">
                 <form action="<?= base_url('auth/login') ?>" method="post">
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                        <label for="loginUsername">Username</label>
+                        <input type="text" class="form-control" id="loginUsername" name="username" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <label for="loginPassword">Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="loginPassword" name="password" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-eye" id="toggleLoginPassword"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
@@ -93,3 +110,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+    });
+</script>
+

@@ -8,5 +8,9 @@ class index extends BaseController
     {
         return view('uploader/index');
     }
+    public function upload(): string
+    {
+        return view('uploader/upload');
+    }
 
 }

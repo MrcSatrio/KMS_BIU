@@ -13,9 +13,10 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Beranda</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo base_url('uploader/dashboard'); ?>">Beranda</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo base_url('uploader/upload'); ?>">Upload</a></li>
             </ul>
-            <button type="button" class="btn btn-danger" id="logoutButton">Logout</button>
+           <button type="button" class="btn btn-danger" id="logoutButton">Logout</button>
         </div>
     </div>
 </nav>
