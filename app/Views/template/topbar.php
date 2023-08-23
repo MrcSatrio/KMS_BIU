@@ -18,7 +18,7 @@
 
 <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mx-auto">
-        <li class="nav-item"><a class="nav-link" href="#">Beranda</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= base_url('/') ?>">Beranda</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Pelatihan</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Pusat Pengetahuan</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Pusat Bantuan</a></li>
@@ -120,4 +120,5 @@
         passwordInput.setAttribute('type', type);
     });
 </script>
+
 

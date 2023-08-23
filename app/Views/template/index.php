@@ -25,6 +25,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <!-- Add this in the <head> section of your HTML -->
+    
+
+
 
    
 
@@ -167,5 +172,12 @@
         .card:hover {
             transform: translateY(-5px);
         }
+        .smaller-text {
+            font-size: 12px; /* Adjust the font size as needed */
+        }
+        .title {
+            margin-bottom: 5px; /* Adjust the margin as needed */
+        }
+        
     </style>
 </html>
