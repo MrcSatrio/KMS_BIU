@@ -1,43 +1,44 @@
 <?= $this->extend('template/index'); ?>
 
 <?php $this->section('container'); ?>
-
 <div class="container mt-3">
-        <div class="jumbotron text-center">
-            <h5 class="display-4">MARI MENARI BERSAMA</h5>
-            <p class="lead">KULIAH KERJA NGANGGUR</p>
-        </div>
+    <div class="jumbotron text-center">
+        <h5 class="display-4"><?= $document['judul'] ?></h5>
+        <p class="lead"><?= $document['nama_kategori'] ?></p>
+    </div>
+    <?php if (!empty($document['video'])): ?>
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/IxxstCcJlsc" allowfullscreen></iframe>
+            <iframe class="embed-responsive-item" src="<?= $document['video'] ?>" allowfullscreen></iframe>
         </div>
-        <div class="row mt-4">
-            <div class="col-md-8">
-                <div class="media">
-                    <div class="media-body">
-                        <h5 class="mt-0">Asep Kudis</h5>
-                        <p class="mb-1" id="video-stats">Loading...</p>
-                    </div>
+    <?php endif; ?>
+
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="media">
+                <div class="media-body">
+                    <h5 class="mt-0"><?= $document['nama'] ?></h5>
+                    <p class="mb-1" id="video-stats">Diupload <?= date('d F Y', strtotime($document['created_at'])) ?></p>
                 </div>
             </div>
-            <div class="col-md-4 text-md-right">
-                <button class="btn btn-warning rounded-pill mt-2"><i class="fas fa-star"></i> 0.0</button>
-                <button class="btn btn-primary rounded-pill mt-2"><i class="fas fa-share"></i> Bagikan</button>
-            </div>
         </div>
-        <div class="mt-4">
-            <p>Ini adalah isi dari pengetahuan Anda. Tulis di sini informasi dan penjelasan yang ingin Anda bagikan kepada pengunjung.</p>
-            <p>Tambahkan teks, gambar, atau format lain sesuai kebutuhan.</p>
+        <div class="col-md-4 text-md-right">
+            <button class="btn btn-warning rounded-pill mt-2"><i class="fas fa-thumbs-up"></i> 0.0</button>
+            <button class="btn btn-primary rounded-pill mt-2" id="share-button"><i class="fas fa-share"></i> Bagikan</button>
         </div>
     </div>
-    <script>
-        // Retrieve video statistics using YouTube API or scraping methods
-        // Here's an example of how you can update the stats dynamically
-        const videoStatsElement = document.getElementById('video-stats');
-        
-        // Replace this with your logic to retrieve video statistics
-        const videoStats = "0 x ditonton - dibuat 10 Agustus 2023";
-        
-        videoStatsElement.innerText = videoStats;
-    </script>
+    <div class="mt-4">
+        <p><?= $document['deskripsi'] ?></p>
+    </div>
+</div>
+
+<script>
+    const shareButton = document.getElementById('share-button');
+    shareButton.addEventListener('click', function() {
+        const documentId = <?= $document['id_dokumen'] ?>;
+        const shareLink = window.location.origin + '/knowledge/' + documentId;
+        alert('Bagikan link: ' + shareLink);
+    });
+</script>
+
 
 <?php $this->endSection(); ?>

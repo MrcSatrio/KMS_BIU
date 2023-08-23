@@ -13,7 +13,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mx-auto">
-        <li class="nav-item"><a class="nav-link" href="#">Beranda</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/dashboard'); ?>">Beranda</a></li>
         <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/account'); ?>">Akun</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Materi</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Profil</a></li>
