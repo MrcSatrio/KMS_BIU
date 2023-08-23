@@ -110,7 +110,6 @@
         </div>
     </div>
 </div>
-
 <script>
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
@@ -120,4 +119,13 @@
         passwordInput.setAttribute('type', type);
     });
 </script>
+<script>
+    const toggleLoginPassword = document.getElementById('toggleLoginPassword');
+const loginPasswordInput = document.getElementById('loginPassword');
 
+toggleLoginPassword.addEventListener('click', function () {
+    const type = loginPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    loginPasswordInput.setAttribute('type', type);
+});
+
+</script>
