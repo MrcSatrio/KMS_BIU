@@ -33,7 +33,10 @@ class index extends BaseController
             ->join('akun', 'berkas.account_id = akun.account_id')
             ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
             ->where('id_dokumen', $id_dokumen)
-            ->first() // Use `first()` to get a single row
+            ->first(), // Use `first()` to get a single row
+        'bk' => $this->berkasModel
+        ->where('id_dokumen', $id_dokumen)
+        ->first()
     ]; 
     return view('public/knowledge', $data);
 }

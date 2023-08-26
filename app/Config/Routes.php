@@ -48,6 +48,9 @@ $routes->group('uploader', ['filter' => 'roleFilter'], function ($routes) {
     $routes->get('dashboard', 'Uploader\Index::index');
     $routes->get('upload', 'Uploader\Index::upload');
     $routes->post('action_upload', 'Uploader\Index::action_upload');
+    $routes->get('knowledge/(:num)', 'Uploader\index::knowledge/$1');
+    $routes->get('materi', 'Uploader\Berkas::read');
+
 
     $routes->get('materi', 'Uploader\Index::materi');
 

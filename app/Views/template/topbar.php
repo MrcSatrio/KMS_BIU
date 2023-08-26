@@ -122,14 +122,9 @@
 <script>
     const toggleLoginPassword = document.getElementById('toggleLoginPassword');
 const loginPasswordInput = document.getElementById('loginPassword');
-
-<<<<<<< HEAD
 toggleLoginPassword.addEventListener('click', function () {
     const type = loginPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     loginPasswordInput.setAttribute('type', type);
 });
 
 </script>
-=======
-
->>>>>>> 84bca8922b2baf2acb4ddffb545332b18625f803

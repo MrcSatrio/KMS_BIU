@@ -1,4 +1,4 @@
-<?= $this->extend('template/index'); ?>
+<?= $this->extend('uploader/template/index'); ?>
 
 <?php $this->section('container'); ?>
 <div class="container mt-3">
@@ -17,7 +17,7 @@
             <div class="media">
                 <div class="media-body">
                     <h5 class="mt-0"><?= $document['nama'] ?></h5>
-                    <p class="mb-1" id="video-stats">Diupload <?= date('d F Y', strtotime($bk['created_at'])) ?></p>
+                    <p class="mb-1" id="video-stats">Diupload <?= date('d F Y', strtotime($document['created_at'])) ?></p>
                 </div>
             </div>
         </div>
