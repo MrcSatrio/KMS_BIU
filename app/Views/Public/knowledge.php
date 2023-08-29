@@ -1,15 +1,52 @@
 <?= $this->extend('template/index'); ?>
 
 <?php $this->section('container'); ?>
-<div class="container mt-3">
+<link href="//vjs.zencdn.net/8.3.0/video-js.min.css" rel="stylesheet">
+<script src="//vjs.zencdn.net/8.3.0/video.min.js"></script>
+<script src="<?= base_url("videojs-youtube\dist\Youtube.min.js") ?>"></script>
+
+<body>
+  <div class="container mt-3">
     <div class="jumbotron text-center">
-        <h5 class="display-4"><?= $document['judul'] ?></h5>
-        <p class="lead"><?= $document['nama_kategori'] ?></p>
+      <h5 class="display-4"><?= $document['judul'] ?></h5>
+      <p class="lead"><?= $document['nama_kategori'] ?></p>
     </div>
+    <style>
+        .video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* Untuk video 16:9, gunakan 75% untuk 4:3 */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+        </style>
     <?php if (!empty($document['video'])): ?>
-        <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="<?= $document['video'] ?>" allowfullscreen></iframe>
-        </div>
+        <div class="video-container">
+  <video
+    id="my-video"
+    class="video-js vjs-default-skin"
+    controls
+    autoplay
+    width="100%"
+    height="auto"
+    data-setup='{
+      "techOrder": ["youtube"],
+      "sources": [
+        { "type": "video/youtube", "src": "<?= $document['video'] ?>" }
+      ]
+    }'>
+  </video>
+</div>
+
+
     <?php endif; ?>
 
     <div class="row mt-4">
