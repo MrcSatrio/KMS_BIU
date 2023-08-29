@@ -1,4 +1,4 @@
-<?= $this->extend('Uploader/template/index'); ?>
+<?= $this->extend('template/index'); ?>
 
 <?php $this->section('container'); ?>
 

@@ -14,7 +14,20 @@
     <link href="<?= base_url() ?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <link href="<?= base_url() ?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="<?= base_url() ?>/assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="<?= base_url() ?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Tambahkan ikon Font Awesome -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
     <!-- Custom styles for this template-->
     <link href="<?= base_url() ?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,8 +40,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
     <!-- Add this in the <head> section of your HTML -->
-    
+        <link href="<?= base_url() ?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
+    <!-- Custom styles for this template-->
+    <link href="<?= base_url() ?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Tambahkan ikon Font Awesome -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/hgys0rz09d359u4mdu9g544jc35j7ixlp04uv0k4a7pbsxor/tinymce/5/tinymce.min.js"></script>
 
 
    
@@ -58,10 +85,15 @@
 
             <!-- Main Content -->
             <div id="content">
-
-                <!-- Topbar -->
-                <?= $this->include('template/topbar'); ?>
-                <!-- End of Topbar -->
+            <?php
+            if (session('id_role') === '1') {
+    echo $this->include('Admin/topbar');
+            } elseif (session('id_role') === '2') {
+    echo $this->include('Uploader/topbar');
+            } else {
+    echo $this->include('template/topbar');
+            }
+            ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -178,6 +210,75 @@
         .title {
             margin-bottom: 5px; /* Adjust the margin as needed */
         }
+        .upload-form {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .upload-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .upload-form input[type="file"] {
+            margin-bottom: 20px;
+        }
+        .upload-form input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        
+        }
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        option {
+            background-color: #f5f5f5;
+            color: #333;
+        }
         
     </style>
+           <script>
+        // Initialize TinyMCE with your API Key
+        tinymce.init({
+            selector: '#documentContent', // ID of the textarea element
+            apiKey: 'hgys0rz09d359u4mdu9g544jc35j7ixlp04uv0k4a7pbsxor', // Replace with your API Key
+            plugins: 'link image code',
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image',
+            height: 300
+        });
+    </script>
+    <?php
+$flashsuccess = session()->getFlashdata('success');
+$flasherror = session()->getFlashdata('error');
+?>
+
+<?php if (!empty($flashsuccess) || !empty($flasherror)): ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        <?php if (!empty($flashsuccess)): ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                html: '<?php echo addslashes($flashsuccess); ?>'
+            });
+        <?php endif; ?>
+        
+        <?php if (!empty($flasherror)): ?>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                html: '<?php echo addslashes($flasherror); ?>'
+            });
+        <?php endif; ?>
+    });
+</script>
+<?php endif; ?>
 </html>

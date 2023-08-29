@@ -1,4 +1,4 @@
-<?= $this->extend('uploader/template/index'); ?>
+<?= $this->extend('template/index'); ?>
 
 <?php $this->section('container'); ?>
 <div class="container mt-3">
