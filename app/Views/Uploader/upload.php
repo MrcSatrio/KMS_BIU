@@ -21,7 +21,7 @@
 
 
                 <label for="documentContent">Materi:</label>
-                <textarea id="documentContent" name="documentContent"></textarea>
+                <textarea id="mytextarea" name="documentContent"></textarea>
 
                 <label for="documentFile">Thumbnail:</label>
                 <input type="file" id="documentFile" name="documentFile" accept=".jpg,.jpeg,." required>

@@ -61,7 +61,7 @@ class Index extends BaseController
             $account_id = $_SESSION['account_id'];
             $databerkas = [
                 'judul' => $documentTitle,
-                'id_account' => $account_id,
+                'account_id' => $account_id,
                 'deskripsi' => $documentContent,
                 'id_kategori' => $documentType,
                 'video' => $documentVideo,

@@ -48,14 +48,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Tambahkan ikon Font Awesome -->
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/hgys0rz09d359u4mdu9g544jc35j7ixlp04uv0k4a7pbsxor/tinymce/5/tinymce.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/hgys0rz09d359u4mdu9g544jc35j7ixlp04uv0k4a7pbsxor/tinymce/6/tinymce.min.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 
    
@@ -245,16 +246,23 @@
         }
         
     </style>
-           <script>
-        // Initialize TinyMCE with your API Key
-        tinymce.init({
-            selector: '#documentContent', // ID of the textarea element
-            apiKey: 'hgys0rz09d359u4mdu9g544jc35j7ixlp04uv0k4a7pbsxor', // Replace with your API Key
-            plugins: 'link image code',
-            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image',
-            height: 300
-        });
+<script>
+      tinymce.init({
+        selector: '#mytextarea',
+        plugins: [
+  'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+  'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+  'media', 'table', 'emoticons', 'template', 'help'
+],
+      });
     </script>
+    <script>
+  var quill = new Quill('#editor', {
+    theme: 'snow'
+  });
+</script>
+
+  </head>
     <?php
 $flashsuccess = session()->getFlashdata('success');
 $flasherror = session()->getFlashdata('error');

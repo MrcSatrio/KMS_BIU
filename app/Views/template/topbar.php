@@ -19,9 +19,27 @@
 <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link" href="<?= base_url('/') ?>">Beranda</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Pelatihan</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Pusat Pengetahuan</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Pusat Bantuan</a></li>
+        <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="tridharmaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Tridharma
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="tridharmaDropdown">
+                        <a class="dropdown-item" href="#">Submenu 1</a>
+                        <a class="dropdown-item" href="#">Submenu 2</a>
+                        <a class="dropdown-item" href="#">Submenu 3</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="pengetahuanDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Pengetahuan
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pengetahuanDropdown">
+                        <a class="dropdown-item" href="#">Submenu 1</a>
+                        <a class="dropdown-item" href="#">Submenu 2</a>
+                        <a class="dropdown-item" href="#">Submenu 3</a>
+                    </div>
+                </li>
+        <li class="nav-item"><a class="nav-link" href="#">Publikasi</a></li>
     </ul>
     
     <button type="button" class="btn btn-secondary" id="registerButton" data-toggle="modal" data-target="#registerModal">Register</button>
@@ -126,5 +144,4 @@ toggleLoginPassword.addEventListener('click', function () {
     const type = loginPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     loginPasswordInput.setAttribute('type', type);
 });
-
 </script>
