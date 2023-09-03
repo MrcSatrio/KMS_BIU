@@ -18,7 +18,6 @@ class Index extends BaseController
     {
         $data =
         [
-            'title' => 'Parking Management System',
             'berkas' => $this->berkasModel
                 ->join('akun', 'berkas.account_id = akun.account_id')
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
@@ -29,48 +28,15 @@ class Index extends BaseController
     public function knowledge($id_dokumen)
     {
         $data = [
-            'title' => 'Parking Management System',
             'document' => $this->berkasModel
                 ->join('akun', 'berkas.account_id = akun.account_id')
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
                 ->where('id_dokumen', $id_dokumen)
-                ->first() // Use `first()` to get a single row
+                ->first(), // Use `first()` to get a single row
+            'bk' => $this->berkasModel
+            ->where('id_dokumen', $id_dokumen)
+            ->first()
         ]; 
         return view('uploader/knowledge', $data);
-    }
-
-    public function upload(): string
-    {
-        return view('uploader/upload');
-    }
-
-    public function action_upload(): string
-    {
-        if ($this->request->getMethod() === 'post') {
-            $documentTitle = $this->request->getPost('documentTitle');
-            $documentVideo = $this->request->getPost('documentVideo');
-            $documentType = $this->request->getPost('documentType');
-            $documentContent = $this->request->getPost('documentContent');
-
-            // Handle the uploaded document file
-            $documentFile = $this->request->getFile('documentFile');
-            if ($documentFile->isValid() && !$documentFile->hasMoved()) {
-                $newFileName = $documentFile->getRandomName();
-                $documentFile->move(ROOTPATH . 'public/uploads', $newFileName);
-            }
-            $account_id = $_SESSION['account_id'];
-            $databerkas = [
-                'judul' => $documentTitle,
-                'account_id' => $account_id,
-                'deskripsi' => $documentContent,
-                'id_kategori' => $documentType,
-                'video' => $documentVideo,
-                'berkas' => $newFileName, // Store the file name in the database
-            ];
-            
-            $this->berkasModel->insert($databerkas);
-        }
-
-        return view('uploader/upload');// Redirect after processing
     }
 }

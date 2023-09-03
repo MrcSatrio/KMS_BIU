@@ -28,7 +28,7 @@ class Account extends BaseController
                 ->findAll() // Mengambil semua data user (sesuaikan sesuai kebutuhan)
         ];
     
-        return view('admin/account_read', $data);
+        return view('admin/account/read', $data);
     }
     
 }

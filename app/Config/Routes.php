@@ -40,14 +40,34 @@ $routes->get('logout', 'Auth\Auth::logout');
 //admin
 $routes->group('admin', ['filter' => 'roleFilter'], function ($routes) {
     $routes->get('dashboard', 'Admin\Index::index');
+
+    //akun
     $routes->get('account', 'Admin\Account::read');
+
+    //kategori
+    $routes->get('kategori', 'Admin\Kategori::read');
+    $routes->get('kategori/create', 'Admin\Kategori::create');
+    $routes->post('kategori/create', 'Admin\Kategori::create');
+    $routes->get('kategori/delete/(:num)', 'Admin\kategori::delete/$1');
+    $routes->get('kategori/update/(:num)', 'Admin\kategori::update/$1');
+    $routes->post('kategori/update_action', 'Admin\kategori::update_action');
+
+    //sub kategori
+    $routes->get('sub_kategori', 'Admin\Sub_kategori::read');
+    $routes->get('sub_kategori/create', 'Admin\Sub_kategori::create');
+    $routes->post('sub_kategori/create', 'Admin\Sub_kategori::create');
+    $routes->get('sub_kategori/delete/(:num)', 'Admin\Sub_kategori::delete/$1');
+    $routes->get('sub_kategori/update/(:num)', 'Admin\Sub_kategori::update/$1');
+    $routes->post('sub_kategori/update_action', 'Admin\Sub_kategori::update_action');
+
+    $routes->get('knowledge/(:num)', 'Admin\index::knowledge/$1');
 });
 
 
 $routes->group('uploader', ['filter' => 'roleFilter'], function ($routes) {
     $routes->get('dashboard', 'Uploader\Index::index');
-    $routes->get('upload', 'Uploader\Index::upload');
-    $routes->post('action_upload', 'Uploader\Index::action_upload');
+    $routes->get('upload', 'Uploader\Berkas::upload');
+    $routes->post('upload', 'Uploader\Berkas::upload');
     $routes->get('knowledge/(:num)', 'Uploader\index::knowledge/$1');
     $routes->get('materi', 'Uploader\Berkas::read');
 

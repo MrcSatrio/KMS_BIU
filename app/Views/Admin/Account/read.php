@@ -37,6 +37,26 @@
 </div>
 
 <script>
+    document.querySelectorAll('.delete-link').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const deleteUrl = this.getAttribute('href');
+            
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus akun ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect ke URL penghapusan jika pengguna mengonfirmasi
+                    window.location.href = deleteUrl;
+                }
+            });
+        });
+    });
 $(document).ready(function() {
     $('#myTable').DataTable({
         responsive: true

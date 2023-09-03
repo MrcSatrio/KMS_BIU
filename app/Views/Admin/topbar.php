@@ -15,7 +15,16 @@
     <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/dashboard'); ?>">Beranda</a></li>
         <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/account'); ?>">Akun</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Materi</a></li>
+        <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="pengaturan" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Pengaturan
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pengaturan">
+                        <a class="dropdown-item" href="<?php echo base_url('admin/kategori'); ?>">Kategori</a>
+                        <a class="dropdown-item" href="<?php echo base_url('admin/sub_kategori'); ?>">Sub kategori</a>
+                        <a class="dropdown-item" href="#">Submenu 3</a>
+                    </div>
+                </li>
         <li class="nav-item"><a class="nav-link" href="#">Profil</a></li>
     </ul>
             <button type="button" class="btn btn-danger" id="logoutButton">Logout</button>

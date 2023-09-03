@@ -28,7 +28,6 @@ class index extends BaseController
     public function knowledge($id_dokumen)
 {
     $data = [
-        'title' => 'Parking Management System',
         'document' => $this->berkasModel
             ->join('akun', 'berkas.account_id = akun.account_id')
             ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')

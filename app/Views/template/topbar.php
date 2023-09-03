@@ -42,19 +42,17 @@
         <li class="nav-item"><a class="nav-link" href="#">Publikasi</a></li>
     </ul>
     
-    <button type="button" class="btn btn-secondary" id="registerButton" data-toggle="modal" data-target="#registerModal">Register</button>
-    <button type="button" class="btn btn-primary" id="loginButton" data-toggle="modal" data-target="#loginModal">Login</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Login</button>
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Register</button>
 
 </div>
 
 
     </div>
 </nav>
-
-<!--ini adalah modal untuk register -->
 <!-- Modal -->
 <!-- Modal untuk registrasi -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -96,7 +94,7 @@
 </div>
 
 <!-- Modal untuk login -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -145,3 +143,5 @@ toggleLoginPassword.addEventListener('click', function () {
     loginPasswordInput.setAttribute('type', type);
 });
 </script>
+
+
