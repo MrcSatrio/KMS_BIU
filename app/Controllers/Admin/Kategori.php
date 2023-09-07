@@ -61,9 +61,9 @@ class Kategori extends BaseController
 }
 public function delete($id_kategori)
 {
-    $sub_kategori = $this->kategoriModel->find($id_kategori);
+    $kategori = $this->kategoriModel->find($id_kategori);
 
-    if ($sub_kategori) {
+    if ($kategori) {
         $this->kategoriModel->delete($id_kategori);
 
         // Tampilkan pesan sukses dengan SweetAlert

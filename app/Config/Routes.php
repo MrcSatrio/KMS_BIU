@@ -43,6 +43,9 @@ $routes->group('admin', ['filter' => 'roleFilter'], function ($routes) {
 
     //akun
     $routes->get('account', 'Admin\Account::read');
+    $routes->get('account/update/(:num)', 'Admin\Account::update/$1');
+    $routes->post('account/update_action', 'Admin\Account::update_action');
+    $routes->get('account/delete/(:num)', 'Admin\Account::delete/$1');
 
     //kategori
     $routes->get('kategori', 'Admin\Kategori::read');
@@ -70,7 +73,9 @@ $routes->group('uploader', ['filter' => 'roleFilter'], function ($routes) {
     $routes->post('upload', 'Uploader\Berkas::upload');
     $routes->get('knowledge/(:num)', 'Uploader\index::knowledge/$1');
     $routes->get('materi', 'Uploader\Berkas::read');
-
+    $routes->get('materi/delete/(:num)', 'Uploader\Berkas::delete/$1');
+    $routes->get('materi/update/(:num)', 'Uploader\Berkas::update/$1');
+    $routes->post('materi/update_action', 'Uploader\Berkas::update_action');
 
     $routes->get('materi', 'Uploader\Index::materi');
 

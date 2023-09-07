@@ -39,7 +39,7 @@ class Berkas extends BaseController
                 ->findAll(), // Use findAll() to get all results
         ];
 
-        return view('uploader/materi', $data);
+        return view('uploader/berkas/read', $data);
     }
     public function upload()
 {
@@ -97,6 +97,92 @@ class Berkas extends BaseController
         ];
         
         return view('uploader/upload', $data);
+    }
+}
+public function delete($id_dokumen)
+{
+    $dokumen = $this->berkasModel->find($id_dokumen);
+
+    if ($dokumen) {
+        $this->berkasModel->delete($id_dokumen);
+
+        // Tampilkan pesan sukses dengan SweetAlert
+        session()->setFlashdata('success', 'Materi berhasil diHapus.');
+
+        // Mengalihkan pengguna ke halaman lain (misalnya halaman daftar kategori)
+        return redirect()->to('uploader/materi');
+    } else {
+        // Jika data tidak ditemukan, tampilkan pesan error
+
+        // Mengalihkan pengguna ke halaman lain (misalnya halaman daftar kategori)
+        return redirect()->to('uploader/materi');
+    }
+
+}
+public function update($id_dokumen)
+{
+
+    $dokumen = $this->berkasModel->find($id_dokumen);
+
+    // Ambil data kategori (mungkin perlu menyesuaikan nama model dan metode)
+
+    $data = [
+        'dokumen' => $dokumen,
+        'kategori' => $this->kategoriModel
+        ->join('sub_kategori', 'sub_kategori.id_kategori = kategori.id_kategori')
+        ->findAll(),
+    ];
+
+    return view('uploader/berkas/update', $data);
+}
+public function update_action()
+{
+    if ($this->request->getMethod() === 'post') {
+        // Validasi input
+        $validationRules = [
+            'documentTitle' => 'required',
+            'documentType' => 'required',
+            'documentVideo' => 'required',
+            'documentContent'=> 'required',
+            'sub_kategori'=> 'required',
+
+        ];
+
+        if ($this->validate($validationRules)) {
+            // Jika validasi berhasil, ambil nilai dari form
+            $documentTitle = $this->request->getPost('documentTitle');
+            $documentVideo = $this->request->getPost('documentVideo');
+            $documentType = $this->request->getPost('documentType');
+            $documentContent = $this->request->getPost('documentContent');
+            $sub_kategori = $this->request->getPost('sub_kategori');
+            $id_dokumen = $this->request->getPost('id_dokumen');
+            $account_id = $_SESSION['account_id'];
+
+            // Persiapan data subkategori dalam bentuk array
+            $berkas = [
+                'judul' => $documentTitle,
+                'account_id' => $account_id,
+                'deskripsi' => $documentContent,
+                'video' => $documentVideo,
+                'id_kategori' => $documentType,
+                'id_sub_kategori' => $sub_kategori,
+            ];
+
+            // Update data subkategori berdasarkan $id_sub_kategori
+            $this->berkasModel->update($id_dokumen, $berkas);
+
+            session()->setFlashdata('success', 'Kategori berhasil diperbarui.');
+
+            // Mengalihkan pengguna ke halaman lain (misalnya halaman daftar kategori)
+            return redirect()->to('uploader/materi');
+        } else {
+            // Jika validasi gagal, tampilkan pesan kesalahan
+            $validationErrors = $this->validator->getErrors();
+            session()->setFlashdata('error', $validationErrors);
+
+            // Mengembalikan pengguna ke halaman formulir dengan data input sebelumnya
+            return redirect()->back()->withInput();
+        }
     }
 }
 

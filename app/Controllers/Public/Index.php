@@ -16,11 +16,16 @@ class index extends BaseController
     {
         $data =
         [
-            'title' => 'Parking Management System',
             'berkas' => $this->berkasModel
                 ->join('akun', 'berkas.account_id = akun.account_id')
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
-                ->findAll() // Mengambil semua data user (sesuaikan sesuai kebutuhan)
+                ->findAll(), // Mengambil semua data user (sesuaikan sesuai kebutuhan)
+                'event' => $this->berkasModel
+                ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
+                ->where('nama_kategori', 'EVENT')
+                ->orderBy('updated_at', 'DESC') // Menyortir data berdasarkan tanggal_upload secara descending
+                ->limit(5) // Mengambil hanya 5 data terbaru
+                ->findAll(),
         ]; 
         return view('public/index', $data);
     }
