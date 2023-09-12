@@ -41,8 +41,33 @@ $routes->get('logout', 'Auth\Auth::logout');
 $routes->group('admin', ['filter' => 'roleFilter'], function ($routes) {
     $routes->get('dashboard', 'Admin\Index::index');
 
+    //profile
+    $routes->get('profile/update/(:num)', 'Admin\Profile::update/$1');
+    $routes->post('profile/update_action', 'Admin\Profile::update_action');
+    $routes->get('photo_profile/update/(:num)', 'Admin\Profile::photo_profile/$1');
+    $routes->post('photo_profile/update_action', 'Admin\Profile::photo_update_action');
+
+    //highlight
+    $routes->get('highlight', 'Admin\Highlight::read');
+    $routes->get('highlight/delete/(:num)', 'Admin\Highlight::delete/$1');
+    $routes->get('highlight/create', 'Admin\Highlight::create');
+    $routes->post('highlight/create', 'Admin\Highlight::create');
+    $routes->get('highlight/update/(:num)', 'Admin\Highlight::update/$1');
+    $routes->post('highlight/update_action', 'Admin\Highlight::update_action');
+
+    //berkas
+    $routes->get('upload', 'Admin\Berkas::upload');
+    $routes->post('upload', 'Admin\Berkas::upload');
+    $routes->get('materi', 'Admin\Berkas::read');
+    $routes->get('materi/delete/(:num)', 'Admin\Berkas::delete/$1');
+    $routes->get('materi/update/(:num)', 'Admin\Berkas::update/$1');
+    $routes->post('materi/update_action', 'Admin\Berkas::update_action');
+
+
     //akun
     $routes->get('account', 'Admin\Account::read');
+    $routes->get('account/create', 'Admin\Account::create');
+    $routes->post('account/create', 'Admin\Account::create');
     $routes->get('account/update/(:num)', 'Admin\Account::update/$1');
     $routes->post('account/update_action', 'Admin\Account::update_action');
     $routes->get('account/delete/(:num)', 'Admin\Account::delete/$1');
@@ -76,9 +101,13 @@ $routes->group('uploader', ['filter' => 'roleFilter'], function ($routes) {
     $routes->get('materi/delete/(:num)', 'Uploader\Berkas::delete/$1');
     $routes->get('materi/update/(:num)', 'Uploader\Berkas::update/$1');
     $routes->post('materi/update_action', 'Uploader\Berkas::update_action');
-
     $routes->get('materi', 'Uploader\Index::materi');
 
+    //profile
+    $routes->get('profile/update/(:num)', 'Uploader\Profile::update/$1');
+    $routes->post('profile/update_action', 'Uploader\Profile::update_action');
+    $routes->get('photo_profile/update/(:num)', 'Uploader\Profile::photo_profile/$1');
+    $routes->post('photo_profile/update_action', 'Uploader\Profile::photo_update_action');
     
 });
 

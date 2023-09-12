@@ -9,16 +9,22 @@ use App\Models\BerkasModel;
 class Index extends BaseController
 {
 protected $berkasModel;
+protected $akunModel;
 
     public function __construct()
     {
         $this->berkasModel = new BerkasModel();
+        $this->akunModel = new AkunModel();
     }
 
     public function index()
     {
+        $username = session()->get('username'); 
+        $profie = $this->akunModel->find($username);
+        $currentDate = date('Y-m-d');
         $data =
         [
+            'profile' => $profie,
             'berkas' => $this->berkasModel
                 ->join('akun', 'berkas.account_id = akun.account_id')
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
@@ -29,12 +35,23 @@ protected $berkasModel;
                 ->orderBy('updated_at', 'DESC') // Menyortir data berdasarkan tanggal_upload secara descending
                 ->limit(5) // Mengambil hanya 5 data terbaru
                 ->findAll(),
+                'highlight' => $this->berkasModel
+                ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
+                ->join('sorotan', 'berkas.id_sorot = sorotan.id_sorot')
+                ->where('status_sorot', '1')
+                ->where('tgl_mulai <=', $currentDate)
+                ->where('tgl_akhir >=', $currentDate)
+                ->limit(2)
+                ->findAll(),
         ]; 
         return view('admin/index', $data);
     }
     public function knowledge($id_dokumen)
-    {
+    {  
+         $username = session()->get('username'); 
+        $profie = $this->akunModel->find($username);
         $data = [
+            'profile' => $profie,
             'document' => $this->berkasModel
                 ->join('akun', 'berkas.account_id = akun.account_id')
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')

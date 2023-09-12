@@ -4,20 +4,25 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\KategoriModel;
+use App\Models\AkunModel;
 
 class Kategori extends BaseController
 {
     protected $kategoriModel;
+    protected $akunModel;
 
     public function __construct()
     {
         $this->kategoriModel = new KategoriModel();
+        $this->akunModel = new AkunModel();
     }
     
     public function read()
     {
-    
+        $username = session()->get('username'); 
+        $profie = $this->akunModel->find($username);
         $data = [
+            'profile' => $profie,
             'kategori' => $this->kategoriModel
                 ->findAll()
         ];
@@ -55,9 +60,13 @@ class Kategori extends BaseController
             session()->setFlashdata('error', $validationErrors);
         }
     }
-
+    $username = session()->get('username'); 
+    $profie = $this->akunModel->find($username);
+    $data = [
+        'profile' => $profie,
+    ];
     // Tampilkan view formulir jika permintaan adalah POST atau validasi gagal
-    return view('admin/kategori/create');
+    return view('admin/kategori/create', $data);
 }
 public function delete($id_kategori)
 {
@@ -82,12 +91,14 @@ public function delete($id_kategori)
 }
 public function update($id_kategori)
 {
-
+    $username = session()->get('username'); 
+    $profie = $this->akunModel->find($username);
     $kategori = $this->kategoriModel->find($id_kategori);
 
     // Ambil data kategori (mungkin perlu menyesuaikan nama model dan metode)
 
     $data = [
+        'profile' => $profie,
         'kategori' => $kategori,
     ];
 

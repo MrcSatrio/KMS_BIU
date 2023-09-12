@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\AkunModel;
 use App\Models\KategoriModel;
 use App\Models\SubkategoriModel;
 
@@ -10,17 +11,21 @@ class Sub_kategori extends BaseController
 {
     protected $kategoriModel;
     protected $subkategoriModel;
+    protected $akunModel;
 
     public function __construct()
     {
         $this->kategoriModel = new KategoriModel();
         $this->subkategoriModel = new SubkategoriModel();
+        $this->akunModel = new AkunModel();
     }
     
     public function read()
     {
-    
+        $username = session()->get('username'); 
+        $profie = $this->akunModel->find($username);
         $data = [
+            'profile' => $profie,
             'kategori' => $this->kategoriModel
             ->join('sub_kategori', 'sub_kategori.id_kategori = kategori.id_kategori')
                 ->findAll()
@@ -63,8 +68,10 @@ class Sub_kategori extends BaseController
             return redirect()->to('admin/sub_kategori/create')->withInput();
         }
     }
-
+    $username = session()->get('username'); 
+    $profie = $this->akunModel->find($username);
     $data = [
+        'profile' => $profie,
         'kategori' => $this->kategoriModel->findAll(),
     ];
 
@@ -100,8 +107,10 @@ public function update($id_sub_kategori)
     $kategori = $this->kategoriModel->findall();
 
     // Ambil data kategori (mungkin perlu menyesuaikan nama model dan metode)
-
+    $username = session()->get('username'); 
+    $profie = $this->akunModel->find($username);
     $data = [
+        'profile' => $profie,
         'subkategori' => $subkategori,
         'kategori' => $kategori,
     ];

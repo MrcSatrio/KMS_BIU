@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Team">
-    <title>Contoh Topbar</title>
+    <title>KNOWLEDGE MANAGEMENT SYSTEM</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
     
 
     <!-- Font Awesome Icons -->
@@ -21,8 +22,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
 
-    <!-- Quill Text Editor CSS -->
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="<?= base_url() ?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -49,8 +48,6 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 
-    <!-- Quill Text Editor JS -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 </head>
 
 <body id="page-top">
@@ -67,6 +64,9 @@
 
         <!-- Main Content -->
         <div id="content">
+
+        
+
             <?php
             if (session('id_role') === '1') {
     echo $this->include('Admin/topbar');
@@ -237,11 +237,6 @@
 ],
       });
     </script>
-    <script>
-  var quill = new Quill('#editor', {
-    theme: 'snow'
-  });
-</script>
 
   </head>
   <?php
@@ -251,26 +246,25 @@ $flasherror = session()->getFlashdata('error');
 
 <?php if (!empty($flashsuccess) || !empty($flasherror)): ?>
 <script>
-    document.addEventListener("DOMContentLoaded", function(){
+    document.addEventListener("DOMContentLoaded", function () {
         <?php if (!empty($flashsuccess)): ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                html: '<?= esc($flashsuccess) ?>',
-                confirmButtonText: 'OK'
-            });
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            html: '<?= esc($flashsuccess) ?>',
+            confirmButtonText: 'OK'
+        });
         <?php endif; ?>
-        
+
         <?php if (!empty($flasherror)): ?>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                html: '<ul><?php foreach ($flasherror as $error): ?><li><?= esc($error) ?></li><?php endforeach; ?></ul>',
-                confirmButtonText: 'OK'
-            });
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            html: '<?php if (is_array($flasherror)): ?><ul><?php foreach ($flasherror as $error): ?><li><?= esc($error) ?></li><?php endforeach; ?></ul><?php else: ?><?= esc($flasherror) ?><?php endif; ?>',
+            confirmButtonText: 'OK'
+        });
         <?php endif; ?>
     });
 </script>
 <?php endif; ?>
-
 </html>

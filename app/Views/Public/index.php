@@ -38,32 +38,39 @@
             <!-- Kolom Berita Terbaru -->
             <div class="col-md-3">
                 <h2>Berita Terbaru</h2>
-                <div class="card mb-3">
-                    <img src="berita1.jpg" class="card-img-top" alt="Berita 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Pengumuman Penting</h5>
-                        <p class="card-text">Pengumuman terbaru tentang perubahan dalam KMS. Baca selengkapnya...</p>
-                        <a href="#" class="btn btn-primary">Baca Lebih Lanjut</a>
+                <?php foreach ($highlight as $high): ?>
+                    <div class="card mb-3">
+                    <img src="<?= base_url('uploads/' . $high['berkas']); ?>" class="card-img-top" alt="<?= $high['judul'] ?>">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $high['nama_sorot']; ?></h5>
+                            <p class="card-text"><?= substr($high['deskripsi_sorotan'], 0, 50) ?></p>
+                            <?php if (session('id_role') === '1'): ?>
+                                                <a href="<?= base_url('admin/knowledge/' . $high['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                                            <?php elseif (session('id_role') === '2'): ?>
+                                                <a href="<?= base_url('uploader/knowledge/' . $high['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                                            <?php else: ?>
+                                                <a href="<?= base_url('knowledge/' . $high['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                                            <?php endif; ?>
+                        </div>
                     </div>
-                </div>
-                <div class="card mb-3">
-                    <img src="berita2.jpg" class="card-img-top" alt="Berita 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Perkembangan Terbaru</h5>
-                        <p class="card-text">Pelajari perkembangan terbaru dalam manajemen pengetahuan. Baca selengkapnya...</p>
-                        <a href="#" class="btn btn-primary">Baca Lebih Lanjut</a>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
-
             <!-- Container untuk Daftar Pengetahuan -->
             <div class="col-md-12 mt-5">
                 <h2>Daftar Pengetahuan</h2>
+                <form action="#" method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Cari pengetahuan...">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Cari</button>
+            </div>
+        </div>
+    </form>
                 <div class="row">
                     <?php foreach ($berkas as $document): ?>
                         <div class="col-md-4 mb-4">
                             <div class="card shadow-sm">
-                                <img src="<?= base_url('uploads/' . $document['berkas']); ?>" class="card-img-top" alt="<?= $document['judul'] ?>" height="200px">
+                                <img src="<?= base_url('uploads/' . $document['berkas']); ?>" class="card-img-top" alt="<?= $document['judul'] ?>" height="250px">
                                 <div class="card-body">
                                     <p class="card-text title"><?= $document['judul'] ?></p>
                                     <p class="card-text smaller-text"><?= $document['nama_kategori'] ?></p>

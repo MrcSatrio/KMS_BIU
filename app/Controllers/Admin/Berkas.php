@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Uploader;
+namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\AkunModel;
@@ -29,10 +29,9 @@ class Berkas extends BaseController
     public function read()
     {
         $username = session()->get('username'); // Mengambil username dari session
-        $profile = $this->akunModel->find($username);
-        $id_account = session()->get('account_id'); 
+        $profie = $this->akunModel->find($username);
         $data = [
-            'profile' => $profile,
+            'profile' => $profie,
             'user' => $this->akunModel
                 ->join('role', 'role.id_role = akun.id_role')
                 ->where('username', $username)
@@ -40,11 +39,10 @@ class Berkas extends BaseController
             'berkas' => $this->berkasModel
                 ->join('kategori', 'kategori.id_kategori = berkas.id_kategori')
                 ->join('akun', 'akun.account_id = berkas.account_id')
-                ->where('akun.account_id', $id_account) // Mengambil semua data user (sesuaikan sesuai kebutuhan)
                 ->findAll(), // Use findAll() to get all results
         ];
 
-        return view('uploader/berkas/read', $data);
+        return view('admin/berkas/read', $data);
     }
     public function upload()
 {
@@ -67,7 +65,7 @@ class Berkas extends BaseController
         if (!$this->validate($validationRules)) {
             $errors = $this->validator->getErrors();
             session()->setFlashdata('error', $errors);
-            return redirect()->to('uploader/upload'); // Redirect kembali ke halaman upload dengan pesan kesalahan dan data input sebelumnya.
+            return redirect()->to('admin/upload'); // Redirect kembali ke halaman upload dengan pesan kesalahan dan data input sebelumnya.
         }
         
         
@@ -106,15 +104,15 @@ class Berkas extends BaseController
         return redirect()->to('uploader/materi');
     } else {
         $username = session()->get('username'); 
-        $profile = $this->akunModel->find($username);
+        $profie = $this->akunModel->find($username);
         $data = [
-            'profile' => $profile,
+            'profile' => $profie,
             'kategori' => $this->kategoriModel
             ->join('sub_kategori', 'sub_kategori.id_kategori = kategori.id_kategori')
             ->findAll(),
         ];
         
-        return view('uploader/upload', $data);
+        return view('admin/berkas/upload', $data);
     }
 }
 public function delete($id_dokumen)
@@ -128,32 +126,35 @@ public function delete($id_dokumen)
         session()->setFlashdata('success', 'Materi berhasil diHapus.');
 
         // Mengalihkan pengguna ke halaman lain (misalnya halaman daftar kategori)
-        return redirect()->to('uploader/materi');
+        return redirect()->to('admin/materi');
     } else {
         // Jika data tidak ditemukan, tampilkan pesan error
 
         // Mengalihkan pengguna ke halaman lain (misalnya halaman daftar kategori)
-        return redirect()->to('uploader/materi');
+        return redirect()->to('admin/materi');
     }
 
 }
 public function update($id_dokumen)
 {
-
+    $id_account = session()->get('account_id'); 
     $dokumen = $this->berkasModel->find($id_dokumen);
-
-    // Ambil data kategori (mungkin perlu menyesuaikan nama model dan metode)
     $username = session()->get('username'); 
     $profie = $this->akunModel->find($username);
+    // Ambil data kategori (mungkin perlu menyesuaikan nama model dan metode)
+
     $data = [
         'profile' => $profie,
+        'user' => $this->akunModel
+        ->where('account_id', $id_account)
+        ->findAll(),
         'dokumen' => $dokumen,
         'kategori' => $this->kategoriModel
         ->join('sub_kategori', 'sub_kategori.id_kategori = kategori.id_kategori')
         ->findAll(),
     ];
 
-    return view('uploader/berkas/update', $data);
+    return view('admin/berkas/update', $data);
 }
 public function update_action()
 {
@@ -194,7 +195,7 @@ public function update_action()
             session()->setFlashdata('success', 'Kategori berhasil diperbarui.');
 
             // Mengalihkan pengguna ke halaman lain (misalnya halaman daftar kategori)
-            return redirect()->to('uploader/materi');
+            return redirect()->to('admin/materi');
         } else {
             // Jika validasi gagal, tampilkan pesan kesalahan
             $validationErrors = $this->validator->getErrors();

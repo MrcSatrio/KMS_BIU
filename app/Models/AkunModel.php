@@ -16,5 +16,5 @@ class AkunModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
-    protected $allowedFields = ['account_id','nama', 'username', 'password','email','id_role', 'created_at', 'updated_at'];
+    protected $allowedFields = ['account_id','nama', 'username', 'password','email','foto_profile','id_role', 'created_at', 'updated_at'];
 }
