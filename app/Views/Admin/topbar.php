@@ -31,21 +31,23 @@ $nama = $_SESSION['nama'];
                 </li>
                 <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/materi'); ?>">Materi</a></li>
             </ul>
-            <div class="flex-shrink-0 dropdown">
-                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <?php if (!empty($profile['foto_profile'])) : ?>
-                    <img src="<?= base_url('uploads/' . $profile['foto_profile']); ?>" alt="mdo" width="32" height="32" class="rounded-circle">
-                <?php else : ?>
-                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                <?php endif; ?>
-                </a>
-                <ul class="dropdown-menu text-small shadow">
-                <li><a class="dropdown-item">Hallo, <?php echo $nama ?></a></li>
-                <li><a class="dropdown-item" href="<?php echo base_url('admin/profile/update/' . $account_id); ?>">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" id="logoutButton">Sign out</a></li>
-                </ul>
-            </div>
+            <div class="position-relative">
+    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <?php if (!empty($profile['foto_profile'])) : ?>
+            <img src="<?= base_url('uploads/' . $profile['foto_profile']); ?>" alt="mdo" width="32" height="32" class="rounded-circle">
+        <?php else : ?>
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+        <?php endif; ?>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end text-small shadow">
+        <li><a class="dropdown-item">Hallo, <?php echo $nama ?></a></li>
+        <li><a class="dropdown-item" href="<?php echo base_url('admin/profile/update/' . $account_id); ?>">Profile</a></li>
+        <li><a class="dropdown-item" href="<?php echo base_url('admin/photo_profile/update/' . $account_id); ?>">Ubah Foto Profile</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" id="logoutButton">Sign out</a></li>
+    </ul>
+</div>
+
         </div>
     </div>
 </nav>
