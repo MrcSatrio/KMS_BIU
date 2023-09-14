@@ -31,7 +31,8 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Public\Index::index');
 $routes->get('knowledge/(:num)', 'Public\index::knowledge/$1');
-
+$routes->get('search/(:any)', 'Public\Search::search/$1');
+$routes->post('search', 'Public\Search::find');
 //autentikasi
 $routes->post('auth/login', 'Auth\Auth::login');
 $routes->post('auth/register', 'Auth\Auth::register');
@@ -62,6 +63,13 @@ $routes->group('admin', ['filter' => 'roleFilter'], function ($routes) {
     $routes->get('materi/delete/(:num)', 'Admin\Berkas::delete/$1');
     $routes->get('materi/update/(:num)', 'Admin\Berkas::update/$1');
     $routes->post('materi/update_action', 'Admin\Berkas::update_action');
+
+    //event
+    $routes->get('event', 'Admin\Berkas::event_read');
+    $routes->get('event/update/(:num)', 'Admin\Berkas::event/$1');
+    $routes->post('event/create', 'Admin\Berkas::event_create');
+    $routes->get('event/delete/(:num)', 'Admin\Berkas::event_delete/$1');
+
 
 
     //akun

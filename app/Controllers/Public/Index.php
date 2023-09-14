@@ -5,7 +5,7 @@ use \App\Controllers\BaseController;
 use App\Models\BerkasModel;
 use App\Models\AkunModel;
 
-class index extends BaseController
+class Index extends BaseController
 {
     protected $berkasModel;
     protected $akunModel;

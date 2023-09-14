@@ -3,8 +3,8 @@
 <?php $this->section('container'); ?>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Daftar Materi</h1>
-    <a href="<?= base_url('admin/upload') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Materi</a>
+    <h1 class="h3 mb-0 text-gray-800">Daftar Event</h1>
+    <a href="<?= base_url('admin/upload') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Event</a>
 </div>
 <div class="table-responsive">
     <table id="myTable" class="display">
@@ -13,33 +13,31 @@
                 <th>No</th>
                 <th>Judul</th>
                 <th>Deskripsi</th>
-                <th>Kategori</th>
                 <th>Penulis</th>
-                <th>Tanggal</th>
+                <th>Harga</th>
+                <th>Link Event</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal Selesai</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <?php $i = 1; ?>
-            <?php foreach ($berkas as $bk): ?>
+            <?php foreach ($event as $bk): ?>
                 <tr>
                     <td><?= $i++ ?></td>
-                    <td><?= $bk['judul'] ?></td>
-                    <td><?= substr($bk['deskripsi'], 0, 30); ?>...</td>
-                    <td><?= $bk['nama_kategori'] ?></td>
+                    <td><?= $bk['judul_event'] ?></td>
+                    <td><?= substr($bk['materi_event'], 0, 30); ?>...</td>
                     <td><?= $bk['nama'] ?></td>
-                    <td><?= date('Y-m-d', strtotime($bk['created_at'])) ?></td>
+                    <td>Rp <?= number_format($bk['harga'], 0, ',', '.') ?></td>
+                    <td><?= $bk['link_event'] ?></td>
+                    <td><?= date('Y-m-d H:i', strtotime($bk['mulai_event'])) ?></td>
+                    <td><?= date('Y-m-d H:i', strtotime($bk['akhir_event'])) ?></td>
                     <td>
-                        <a href="<?= base_url('admin/materi/update/'.$bk['id_dokumen']) ?>" class="btn btn-success btn-sm update-link">
+                        <a href="<?= base_url('admin/event/update/'.$bk['id_dokumen']) ?>" class="btn btn-success btn-sm update-link">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <?php if ($bk['id_event'] == '0') { ?>
-                            <a href="<?= base_url('admin/event/update/' . $bk['id_dokumen']) ?>" class="btn btn-primary btn-sm">
-                                <i class="fas fa-calendar"></i> Event
-                            </a>
-                        <?php } ?>
-
-                        <a href="<?= base_url('admin/materi/delete/'.$bk['id_dokumen']) ?>" class="btn btn-danger btn-sm delete-link">
+                        <a href="<?= base_url('admin/event/delete/'.$bk['id_dokumen']) ?>" class="btn btn-danger btn-sm delete-link">
                             <i class="fas fa-trash"></i> Hapus
                         </a>
                         <?php

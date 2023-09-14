@@ -55,6 +55,7 @@ protected $akunModel;
             'document' => $this->berkasModel
                 ->join('akun', 'berkas.account_id = akun.account_id')
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
+                ->join('event' , 'berkas.id_event = event.id_event' )
                 ->where('id_dokumen', $id_dokumen)
                 ->first(), // Use `first()` to get a single row
             'bk' => $this->berkasModel

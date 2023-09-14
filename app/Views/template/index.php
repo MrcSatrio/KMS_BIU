@@ -221,7 +221,7 @@
 /* Mengatur ukuran gambar dalam carousel */
 .carousel-inner img {
     width: 100%; /* Gambar akan mengisi seluruh lebar carousel */
-    height: 250px; /* Gambar akan mengisi seluruh tinggi carousel */
+    height: 400px; /* Gambar akan mengisi seluruh tinggi carousel */
     object-fit: cover; /* Untuk memastikan gambar selalu mengisi carousel */
 }
 

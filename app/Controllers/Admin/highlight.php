@@ -54,9 +54,9 @@ class Highlight extends BaseController
         return redirect()->to('admin/highlight');
     } else {
         $username = session()->get('username'); 
-        $profie = $this->akunModel->find($username);
+        $profile = $this->akunModel->find($username);
         $data = [
-            'profile' => $profie,
+            'profile' => $profile,
             'berkas' => $this->berkasModel
                 ->join('kategori', 'kategori.id_kategori = berkas.id_kategori')
                 ->join('akun', 'akun.account_id = berkas.account_id')
@@ -71,9 +71,9 @@ class Highlight extends BaseController
     public function read()
     {
         $username = session()->get('username'); 
-        $profie = $this->akunModel->find($username);
+        $profile = $this->akunModel->find($username);
         $data = [
-            'profile' => $profie,
+            'profile' => $profile,
             'berkas' => $this->berkasModel
                 ->join('kategori', 'kategori.id_kategori = berkas.id_kategori')
                 ->join('akun', 'akun.account_id = berkas.account_id')

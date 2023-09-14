@@ -5,9 +5,11 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\AkunModel;
 use App\Models\BerkasModel;
+use App\Models\EventModel;
 use App\Models\KategoriModel;
 use App\Models\SubkategoriModel;
 use App\Models\SorotModel;
+use App\Models\StatusModel;
 
 class Berkas extends BaseController
 {
@@ -16,6 +18,8 @@ class Berkas extends BaseController
     protected $kategoriModel;
     protected $subkategoriModel;
     protected $sorotModel;
+    protected $statusModel;
+    protected $eventModel;
 
     public function __construct()
     {
@@ -24,6 +28,9 @@ class Berkas extends BaseController
         $this->kategoriModel = new KategoriModel();
         $this->subkategoriModel = new SubkategoriModel();
         $this->sorotModel = new SorotModel();
+        $this->statusModel = new StatusModel();
+        $this->eventModel = new EventModel();
+
     }
 
     public function read()
@@ -52,6 +59,7 @@ class Berkas extends BaseController
             'documentType' => 'required',
             'documentContent' => 'required',
             'sub_kategori' => 'required',
+            
         ];
 
         $documentTitle = $this->request->getPost('documentTitle');
@@ -140,11 +148,11 @@ public function update($id_dokumen)
     $id_account = session()->get('account_id'); 
     $dokumen = $this->berkasModel->find($id_dokumen);
     $username = session()->get('username'); 
-    $profie = $this->akunModel->find($username);
+    $profile = $this->akunModel->find($username);
     // Ambil data kategori (mungkin perlu menyesuaikan nama model dan metode)
 
     $data = [
-        'profile' => $profie,
+        'profile' => $profile,
         'user' => $this->akunModel
         ->where('account_id', $id_account)
         ->findAll(),
@@ -206,5 +214,139 @@ public function update_action()
         }
     }
 }
+public function event_read()
+{
+    $username = session()->get('username'); 
+    $profile = $this->akunModel->find($username);
+    $data = [
+        'profile' => $profile,
+        'event' => $this->berkasModel
+            ->join('event', 'event.id_event = berkas.id_event')
+            ->join('akun', 'akun.account_id = berkas.account_id')
+            ->where('berkas.id_event !=', 0)
+            ->findAll()
+    ];
+    return view('admin/berkas/event_read', $data);
+}
+
+public function event($id_dokumen)
+{
+    $id_account = session()->get('account_id'); 
+    $username = session()->get('username'); 
+    $profile = $this->akunModel->find($username);
+    
+    $data = [
+        'profile' => $profile,
+        'user' => $this->akunModel
+            ->where('account_id', $id_account)
+            ->findAll(),
+        'dokumen' => $this->berkasModel
+            ->join('event', 'event.id_event = berkas.id_event')
+            ->find($id_dokumen),
+    ];
+    
+
+    return view('admin/berkas/event', $data);
+}
+public function event_create()
+{
+    if ($this->request->getMethod() === 'post') {
+        // Aturan validasi
+        $validationRules = [
+            'eventTittle' => 'required',
+            'eventImage' => 'uploaded[eventImage]|max_size[eventImage,1024]|is_image[eventImage]',
+            'start_datetime' => 'required',
+            'end_datetime' => 'required',
+            'price' => 'required',
+            'eventContent' => 'required',
+            'link_event' => 'required',
+            'id_dokumen' => 'required',
+        ];
+
+        if ($this->validate($validationRules)) {
+            // Jika validasi berhasil, ambil input form
+            $eventTittle = $this->request->getPost('eventTittle');
+            $eventImage = $this->request->getFile('eventImage');
+            $start_datetime = $this->request->getPost('start_datetime');
+            $end_datetime = $this->request->getPost('end_datetime');
+            $eventContent = $this->request->getPost('eventContent');
+            $link_event = $this->request->getPost('link_event');
+            $price = $this->request->getPost('price');
+            $id_dokumen = $this->request->getPost('id_dokumen');
+            $id_event = mt_rand(1000000, 9999999);
+
+            // Periksa apakah gambar yang diunggah valid dan pindahkan ke direktori yang sesuai
+            if ($eventImage->isValid() && !$eventImage->hasMoved()) {
+                $newFileName = $eventImage->getRandomName();
+                $eventImage->move(ROOTPATH . 'public/uploads', $newFileName);
+
+                // Persiapkan data event sebagai array
+                $event = [
+                    'id_event' => $id_event,
+                    'judul_event' => $eventTittle,
+                    'banner_event' => $newFileName,
+                    'mulai_event' => $start_datetime,
+                    'akhir_event' => $end_datetime,
+                    'harga' => $price,
+                    'link_event' => $link_event,
+                    'materi_event' => $eventContent,
+                ];
+                $berkas = [
+                    'id_event' => $id_event,
+                    'id_kategori' => 13
+                ];
+                $this->eventModel->insert($event);
+
+                // Perbarui data dalam berkasModel
+                $this->berkasModel->update($id_dokumen, $berkas);
+
+                // Set pesan flash berhasil
+                session()->setFlashdata('success', 'Event berhasil ditambahkan.');
+
+                // Redirect pengguna ke halaman lain (misalnya, admin/materi)
+                return redirect()->to(base_url('admin/berkas/event'));
+            } else {
+                return redirect()->back()->withInput()->with('error', 'Gagal mengunggah Banner.'); // Jika gagal mengunggah berkas, kembali ke halaman unggah dengan pesan kesalahan.
+            }
+        } else {
+            // Jika validasi gagal, dapatkan error validasi
+            $validationErrors = $this->validator->getErrors();
+
+            // Set pesan error flash
+            session()->setFlashdata('error', $validationErrors);
+
+            // Redirect pengguna kembali ke formulir dengan data input
+            return redirect()->back()->withInput();
+        }
+    }
+}
+
+public function event_delete($id_dokumen)
+{
+    $dokumen = $this->berkasModel->find($id_dokumen);
+    // Mengubah nilai 'id_event' dalam dokumen menjadi 0
+    $this->berkasModel->update($id_dokumen, ['id_event' => 0]);
+    if (is_array($dokumen) && isset($dokumen['id_event'])) {
+        $id_event = $dokumen['id_event'];
+        $event = $this->eventModel->find($id_event);
+
+        if ($event) {
+            $this->eventModel->delete($id_event);
+        }
+
+        
+
+        // Tampilkan pesan sukses dengan SweetAlert
+        session()->setFlashdata('success', 'Event berhasil dihapus.');
+    }
+
+    // Redirect ke halaman lain setelah operasi selesai
+    return redirect()->to('admin/event');
+}
+
+
+
+
+
 
 }

@@ -27,6 +27,7 @@ $nama = $_SESSION['nama'];
                         <a class="dropdown-item" href="<?php echo base_url('admin/sub_kategori'); ?>">Sub kategori</a>
                         <a class="dropdown-item" href="<?php echo base_url('admin/account'); ?>">Akun</a>
                         <a class="dropdown-item" href="<?php echo base_url('admin/highlight'); ?>">Highlight</a>
+                        <a class="dropdown-item" href="<?php echo base_url('admin/event'); ?>">Event</a>
                     </div>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/materi'); ?>">Materi</a></li>

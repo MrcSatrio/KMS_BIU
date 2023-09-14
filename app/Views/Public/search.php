@@ -5,62 +5,6 @@
 <!-- Konten Utama -->
 <div class="container mt-5">
     <div class="row">
-        <!-- Carousel (Slideshow Pengumuman) -->
-        <div class="col-md-9">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <?php foreach ($event as $key => $document): ?>
-                        <li data-bs-target="#myCarousel" data-bs-slide-to="<?= $key ?>" <?= $key === 0 ? 'class="active"' : '' ?>></li>
-                    <?php endforeach; ?>
-                </ol>
-
-                <!-- Slides -->
-                <div class="carousel-inner">
-                    <?php foreach ($event as $key => $document): ?>
-                        <div class="carousel-item <?= $key === 0 ? 'active' : '' ?>">
-                            <img src="<?= base_url('uploads/' . $document['berkas']); ?>" alt="<?= $document['judul'] ?>" class="d-block w-100">
-
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <!-- Controls -->
-                <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Kolom Berita Terbaru -->
-        <div class="col-md-3">
-    <?php if (!empty($highlight)): ?> <!-- Check if $highlight is not empty -->
-        <h2>Berita Terbaru</h2>
-        <?php foreach ($highlight as $high): ?>
-            <div class="card mb-3">
-                <img src="<?= base_url('uploads/' . $high['berkas']); ?>" class="card-img-top" alt="<?= $high['judul'] ?>">
-                <div class="card-body">
-                    <h5 class="card-title"><?= $high['nama_sorot']; ?></h5>
-                    <p class="card-text"><?= substr($high['deskripsi_sorotan'], 0, 50) ?></p>
-                    <?php if (session('id_role') === '1'): ?>
-                        <a href="<?= base_url('admin/knowledge/' . $high['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
-                    <?php elseif (session('id_role') === '2'): ?>
-                        <a href="<?= base_url('uploader/knowledge/' . $high['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
-                    <?php else: ?>
-                        <a href="<?= base_url('knowledge/' . $high['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    <?php endif; ?> <!-- End of check for $highlight -->
-</div>
-
-
         <!-- Container untuk Daftar Pengetahuan -->
         <div class="col-md-12 mt-5">
             <h2>Daftar Pengetahuan</h2>

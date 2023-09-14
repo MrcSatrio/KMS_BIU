@@ -85,6 +85,8 @@ class Berkas extends BaseController
         $databerkas = [
             'judul' => $documentTitle,
             'account_id' => $account_id,
+            'id_status' => 1,
+            'id_event' => 0,
             'deskripsi' => $documentContent,
             'video' => $documentVideo,
             'id_kategori' => $documentType,

@@ -24,9 +24,9 @@
                         Tridharma
                     </a>
                     <div class="dropdown-menu" aria-labelledby="tridharmaDropdown">
-                        <a class="dropdown-item" href="#">Submenu 1</a>
-                        <a class="dropdown-item" href="#">Submenu 2</a>
-                        <a class="dropdown-item" href="#">Submenu 3</a>
+                        <a class="dropdown-item" href="<?= base_url('search/SEMINAR') ?>">SEMINAR</a>
+                        <a class="dropdown-item" href="<?= base_url('search/KKNI') ?>">KKNI</a>
+                        <a class="dropdown-item" href="<?= base_url('search/MAGANG') ?>">MAGANG</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
