@@ -28,6 +28,7 @@ protected $akunModel;
             'berkas' => $this->berkasModel
                 ->join('akun', 'berkas.account_id = akun.account_id')
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
+                ->where('id_status', '2')
                 ->findAll(), // Mengambil semua data user (sesuaikan sesuai kebutuhan)
                 'event' => $this->berkasModel
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')

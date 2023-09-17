@@ -63,11 +63,13 @@ $routes->group('admin', ['filter' => 'roleFilter'], function ($routes) {
     $routes->get('materi/delete/(:num)', 'Admin\Berkas::delete/$1');
     $routes->get('materi/update/(:num)', 'Admin\Berkas::update/$1');
     $routes->post('materi/update_action', 'Admin\Berkas::update_action');
+    $routes->get('materi/status/(:num)', 'Admin\Berkas::status/$1');
 
     //event
     $routes->get('event', 'Admin\Berkas::event_read');
     $routes->get('event/update/(:num)', 'Admin\Berkas::event/$1');
     $routes->post('event/create', 'Admin\Berkas::event_create');
+    $routes->get('event/create', 'Admin\Berkas::event_create');
     $routes->get('event/delete/(:num)', 'Admin\Berkas::event_delete/$1');
 
 
@@ -116,6 +118,10 @@ $routes->group('uploader', ['filter' => 'roleFilter'], function ($routes) {
     $routes->post('profile/update_action', 'Uploader\Profile::update_action');
     $routes->get('photo_profile/update/(:num)', 'Uploader\Profile::photo_profile/$1');
     $routes->post('photo_profile/update_action', 'Uploader\Profile::photo_update_action');
+
+    //event
+    $routes->get('event/update/(:num)', 'Uploader\Event::read/$1');
+    $routes->post('event/create', 'Uploader\Event::create');
     
 });
 

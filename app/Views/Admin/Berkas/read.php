@@ -34,7 +34,7 @@
                             <i class="fas fa-edit"></i> Edit
                         </a>
                         <?php if ($bk['id_event'] == '0') { ?>
-                            <a href="<?= base_url('admin/event/update/' . $bk['id_dokumen']) ?>" class="btn btn-primary btn-sm">
+                            <a href="<?= base_url('admin/event/update/' . $bk['id_dokumen']) ?>" class="btn btn-primary btn-sm update-link">
                                 <i class="fas fa-calendar"></i> Event
                             </a>
                         <?php } ?>
@@ -44,7 +44,7 @@
                         </a>
                         <?php
                         if ($bk['id_status'] == '1' || $bk['id_status'] == '3') {
-                            echo '<a href="' . base_url('admin/materi/status/' . $bk['id_dokumen']) . '" class="btn btn-success btn-sm delete-link">';
+                            echo '<a href="' . base_url('admin/materi/status/' . $bk['id_dokumen']) . '" class="btn btn-success btn-sm update-link">';
                             echo '<i class="fas fa-thumbs-up"></i> Setujui';
                             echo '</a>';
                         } else {

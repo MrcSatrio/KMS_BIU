@@ -4,7 +4,7 @@
 <body>
 <div class="container">
         <div class="upload-form">
-            <form action="<?php echo base_url('admin/event/create'); ?>" method="post" enctype="multipart/form-data">
+            <form action="<?php echo base_url('uploader/event/create'); ?>" method="post" enctype="multipart/form-data">
                 <label for="eventTitle">Judul Event</label>
                 <input type="text" id="eventTitle" name="eventTitle" value="<?php echo $dokumen['judul']?>" placeholder="Judul Event" required>
 

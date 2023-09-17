@@ -113,7 +113,9 @@ class Berkas extends BaseController
             'profile' => $profile,
             'kategori' => $this->kategoriModel
             ->join('sub_kategori', 'sub_kategori.id_kategori = kategori.id_kategori')
+            ->where('kategori.nama_kategori !=', 'EVENT')
             ->findAll(),
+
         ];
         
         return view('uploader/upload', $data);
@@ -151,8 +153,9 @@ public function update($id_dokumen)
         'profile' => $profie,
         'dokumen' => $dokumen,
         'kategori' => $this->kategoriModel
-        ->join('sub_kategori', 'sub_kategori.id_kategori = kategori.id_kategori')
-        ->findAll(),
+            ->join('sub_kategori', 'sub_kategori.id_kategori = kategori.id_kategori')
+            ->where('kategori.nama_kategori !=', 'EVENT')
+            ->findAll(),
     ];
 
     return view('uploader/berkas/update', $data);

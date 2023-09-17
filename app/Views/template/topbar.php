@@ -19,27 +19,9 @@
 <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link" href="<?= base_url('/') ?>">Beranda</a></li>
-        <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="tridharmaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tridharma
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="tridharmaDropdown">
-                        <a class="dropdown-item" href="<?= base_url('search/SEMINAR') ?>">SEMINAR</a>
-                        <a class="dropdown-item" href="<?= base_url('search/KKNI') ?>">KKNI</a>
-                        <a class="dropdown-item" href="<?= base_url('search/MAGANG') ?>">MAGANG</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="pengetahuanDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Pengetahuan
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="pengetahuanDropdown">
-                        <a class="dropdown-item" href="#">Submenu 1</a>
-                        <a class="dropdown-item" href="#">Submenu 2</a>
-                        <a class="dropdown-item" href="#">Submenu 3</a>
-                    </div>
-                </li>
-        <li class="nav-item"><a class="nav-link" href="#">Publikasi</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= base_url('search/KKN') ?>">KKN</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= base_url('search/MAGANG') ?>">Magang</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= base_url('search/SEMINAR') ?>">Seminar</a></li>
     </ul>
     
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Login</button>

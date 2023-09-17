@@ -4,7 +4,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Daftar Event</h1>
-    <a href="<?= base_url('admin/upload') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Event</a>
+    <a href="<?= base_url('admin/event/create') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Event</a>
 </div>
 <div class="table-responsive">
     <table id="myTable" class="display">

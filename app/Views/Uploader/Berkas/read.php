@@ -10,8 +10,8 @@
                 <th>Judul</th>
                 <th>Deskripsi</th>
                 <th>kategori</th>
-                <th>Penulis</th>
                 <th>Tanggal</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -23,8 +23,18 @@
                     <td><?= $bk['judul'] ?></td>
                     <td><?= substr($bk['deskripsi'], 0, 30); ?>...</td>
                     <td><?= $bk['nama_kategori'] ?></td>
-                    <td><?= $bk['nama'] ?></td>
                     <td><?= date('Y-m-d', strtotime($bk['created_at'])) ?></td>
+                    <td>
+                        <?php
+                        if ($bk['id_status'] == 1) {
+                            echo '<span class="badge badge-warning">VALIDASI</span>';
+                        } elseif ($bk['id_status'] == 2) {
+                            echo '<span class="badge badge-success">DISETUJUI</span>';
+                        } elseif ($bk['id_status'] == 3) {
+                            echo '<span class="badge badge-danger">DITOLAK</span>';
+                        }
+                        ?>
+                    </td>
                     <td>
                     <a href="<?= base_url('uploader/materi/update/'.$bk['id_dokumen']) ?>" class="btn btn-success btn-sm update-link">
                             <i class="fas fa-edit"></i> Edit
@@ -32,6 +42,11 @@
                         <a href="<?= base_url('uploader/materi/delete/'.$bk['id_dokumen']) ?>" class="btn btn-danger btn-sm delete-link">
                             <i class="fas fa-trash"></i> Hapus
                         </a>
+                        <?php if ($bk['id_event'] == '0') { ?>
+                            <a href="<?= base_url('uploader/event/update/' . $bk['id_dokumen']) ?>" class="btn btn-primary btn-sm update-link">
+                                <i class="fas fa-calendar"></i> Event
+                            </a>
+                        <?php } ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -26,6 +26,7 @@ class Index extends BaseController
             'berkas' => $this->berkasModel
                 ->join('akun', 'berkas.account_id = akun.account_id')
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
+                ->where('id_status', '2')
                 ->findAll(), // Mengambil semua data user (sesuaikan sesuai kebutuhan)
                 'event' => $this->berkasModel
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
@@ -54,6 +55,7 @@ class Index extends BaseController
         'document' => $this->berkasModel
             ->join('akun', 'berkas.account_id = akun.account_id')
             ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
+            ->join('event' , 'berkas.id_event = event.id_event' )
             ->where('id_dokumen', $id_dokumen)
             ->first(), // Use `first()` to get a single row
         'bk' => $this->berkasModel
