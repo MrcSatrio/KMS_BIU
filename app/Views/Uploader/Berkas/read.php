@@ -17,7 +17,8 @@
         </thead>
         <tbody>
         <?php $i = 1; ?>
-            <?php foreach ($berkas as $bk): ?>
+            <?php foreach ($berkas as $bk): 
+                $id_berkas = base64_encode($bk['id_dokumen']);?>
                 <tr>
                 <td><?= $i++ ?></td>
                     <td><?= $bk['judul'] ?></td>
@@ -36,14 +37,21 @@
                         ?>
                     </td>
                     <td>
-                    <a href="<?= base_url('uploader/materi/update/'.$bk['id_dokumen']) ?>" class="btn btn-success btn-sm update-link">
+                    <?php if ($bk['id_event'] == '0') { ?>
+                        <a href="<?= base_url('uploader/materi/update/'.$id_berkas) ?>" class="btn btn-success btn-sm update-link">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <a href="<?= base_url('uploader/materi/delete/'.$bk['id_dokumen']) ?>" class="btn btn-danger btn-sm delete-link">
+                    <?php } else { ?>
+                        <a href="<?= base_url('uploader/event/update/'.$id_berkas) ?>" class="btn btn-success btn-sm update-link">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    <?php } ?>
+
+                        <a href="<?= base_url('uploader/materi/delete/'.$id_berkas) ?>" class="btn btn-danger btn-sm delete-link">
                             <i class="fas fa-trash"></i> Hapus
                         </a>
                         <?php if ($bk['id_event'] == '0') { ?>
-                            <a href="<?= base_url('uploader/event/update/' . $bk['id_dokumen']) ?>" class="btn btn-primary btn-sm update-link">
+                            <a href="<?= base_url('uploader/event/update/' .$id_berkas) ?>" class="btn btn-primary btn-sm update-link">
                                 <i class="fas fa-calendar"></i> Event
                             </a>
                         <?php } ?>

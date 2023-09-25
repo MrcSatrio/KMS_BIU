@@ -43,7 +43,6 @@ $nama = $_SESSION['nama'];
     <ul class="dropdown-menu dropdown-menu-end text-small shadow">
         <li><a class="dropdown-item">Hallo, <?php echo $nama ?></a></li>
         <li><a class="dropdown-item" href="<?php echo base_url('admin/profile/update/' . $account_id); ?>">Profile</a></li>
-        <li><a class="dropdown-item" href="<?php echo base_url('admin/photo_profile/update/' . $account_id); ?>">Ubah Foto Profile</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" id="logoutButton">Sign out</a></li>
     </ul>

@@ -17,7 +17,13 @@
                 </div>
             </form>
             <div class="row">
-                <?php foreach ($berkas as $document): ?>
+            <?php if (empty($berkas)): ?>
+                <div class="col-md-12">
+                    <p>"Maaf, pengetahuan tersebut tidak dapat saya temukan. Silakan gunakan kata kunci pencarian lainnya.".</p>
+                </div>
+            <?php else: ?>
+                <?php foreach ($berkas as $document): 
+                    $dokumen = base64_encode($document['id_dokumen']);?>
                     <div class="col-md-4 mb-4">
                         <div class="card shadow-sm">
                             <img src="<?= base_url('uploads/' . $document['berkas']); ?>" class="card-img-top custom-img" alt="<?= $document['judul'] ?>">
@@ -28,11 +34,11 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <?php if (session('id_role') === '1'): ?>
-                                            <a href="<?= base_url('admin/knowledge/' . $document['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                                            <a href="<?= base_url('admin/knowledge/' . $dokumen) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
                                         <?php elseif (session('id_role') === '2'): ?>
-                                            <a href="<?= base_url('uploader/knowledge/' . $document['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                                            <a href="<?= base_url('uploader/knowledge/' . $dokumen) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
                                         <?php else: ?>
-                                            <a href="<?= base_url('knowledge/' . $document['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                                            <a href="<?= base_url('knowledge/' . $dokumen) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
                                         <?php endif; ?>
                                     </div>
                                     <small class="text-muted">9 mins</small>
@@ -41,6 +47,7 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>

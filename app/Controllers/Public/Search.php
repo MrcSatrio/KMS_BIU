@@ -21,9 +21,11 @@ class Search extends BaseController
     {
 
         $username = session()->get('username'); 
+        $profile = $this->akunModel->find($username);
         $akun = $this->akunModel->find($username);
         $data =
         [
+            'profile' => $profile,
             'akun' => $akun,
             'berkas' => $this->berkasModel
                 ->join('akun', 'berkas.account_id = akun.account_id')
@@ -37,8 +39,10 @@ class Search extends BaseController
 {
     if ($this->request->getMethod() === 'post') {
         $pencarian = $this->request->getPost('pencarian');
-
+        $username = session()->get('username');
+        $profile = $this->akunModel->find($username);
         $databerkas = [
+            'profile' => $profile,
             'berkas' => $this->berkasModel
                 ->join('akun', 'berkas.account_id = akun.account_id')
                 ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')

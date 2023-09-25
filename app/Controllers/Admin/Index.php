@@ -49,20 +49,28 @@ protected $akunModel;
     }
     public function knowledge($id_dokumen)
     {  
-         $username = session()->get('username'); 
-        $profie = $this->akunModel->find($username);
-        $data = [
-            'profile' => $profie,
-            'document' => $this->berkasModel
-                ->join('akun', 'berkas.account_id = akun.account_id')
-                ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
-                ->join('event' , 'berkas.id_event = event.id_event' )
-                ->where('id_dokumen', $id_dokumen)
-                ->first(), // Use `first()` to get a single row
-            'bk' => $this->berkasModel
-            ->where('id_dokumen', $id_dokumen)
+       // Dekode $id_dokumen dari Base64
+    $dokumen = base64_decode($id_dokumen);
+
+    // Dapatkan username dari sesi
+    $username = session()->get('username');
+
+    // Dapatkan profil pengguna berdasarkan username
+    $profile = $this->akunModel->find($username);
+
+    // Dapatkan data dokumen berdasarkan id_dokumen
+    $data = [
+        'profile' => $profile,
+        'document' => $this->berkasModel
+            ->join('akun', 'berkas.account_id = akun.account_id')
+            ->join('kategori', 'berkas.id_kategori = kategori.id_kategori')
+            ->join('event', 'berkas.id_event = event.id_event')
+            ->where('berkas.id_dokumen', $dokumen)
+            ->first(), // Menggunakan `first()` untuk mendapatkan satu baris
+        'bk' => $this->berkasModel
+            ->where('id_dokumen', $dokumen)
             ->first()
-        ]; 
+    ];
         return view('uploader/knowledge', $data);
     }
 }

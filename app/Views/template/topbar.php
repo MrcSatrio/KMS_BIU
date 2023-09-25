@@ -15,13 +15,28 @@
         margin-right: 10px; /* Mengatur jarak pada tombol kanan */
     }
 </style>
+<script>
+    var tokenSent = false;
+</script>
 
 <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link" href="<?= base_url('/') ?>">Beranda</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?= base_url('search/KKN') ?>">KKN</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?= base_url('search/MAGANG') ?>">Magang</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?= base_url('search/SEMINAR') ?>">Seminar</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= base_url('search/Event') ?>">Event</a></li>
+
+        <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="pengaturan" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Kategori
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pengaturan">
+
+                        <a class="dropdown-item" href="<?php echo base_url('search/MAGANG'); ?>">Magang</a>
+                        <a class="dropdown-item" href="<?php echo base_url('search/SEMINAR'); ?>">Seminar</a>
+                        <a class="dropdown-item" href="<?php echo base_url('search/PENELITIAN'); ?>">Penelitian</a>
+                        <a class="dropdown-item" href="<?php echo base_url('search/PKM'); ?>">PKM</a>
+                        <a class="dropdown-item" href="<?php echo base_url('search/REKOGNISI'); ?>">Rekognisi</a>
+                    </div>
+                </li>
     </ul>
     
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Login</button>
@@ -69,6 +84,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Register</button>
+                    <a href="<?php echo base_url('auth/activated'); ?>">Aktivasi Akun</a>
                 </form>
             </div>
         </div>
@@ -108,6 +124,8 @@
         </div>
     </div>
 </div>
+
+
 <script>
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');

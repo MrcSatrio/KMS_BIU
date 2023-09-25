@@ -41,18 +41,20 @@
         <div class="col-md-3">
     <?php if (!empty($highlight)): ?> <!-- Check if $highlight is not empty -->
         <h2>Berita Terbaru</h2>
-        <?php foreach ($highlight as $high): ?>
+        <?php foreach ($highlight as $high): 
+            $id_highlight = base64_encode($high['id_dokumen']);
+            ?>
             <div class="card mb-3">
                 <img src="<?= base_url('uploads/' . $high['berkas']); ?>" class="card-img-top" alt="<?= $high['judul'] ?>">
                 <div class="card-body">
                     <h5 class="card-title"><?= $high['nama_sorot']; ?></h5>
                     <p class="card-text"><?= substr($high['deskripsi_sorotan'], 0, 50) ?></p>
                     <?php if (session('id_role') === '1'): ?>
-                        <a href="<?= base_url('admin/knowledge/' . $high['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                        <a href="<?= base_url('admin/knowledge/' . $id_highlight) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
                     <?php elseif (session('id_role') === '2'): ?>
-                        <a href="<?= base_url('uploader/knowledge/' . $high['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                        <a href="<?= base_url('uploader/knowledge/' . $id_highlight) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
                     <?php else: ?>
-                        <a href="<?= base_url('knowledge/' . $high['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                        <a href="<?= base_url('knowledge/' . $id_highlight) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -73,9 +75,11 @@
                 </div>
             </form>
             <div class="row">
-                <?php foreach ($berkas as $document): ?>
+                <?php foreach ($berkas as $document): 
+                $id_dokumen = base64_encode($document['id_dokumen']);
+                ?>
                     <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
+                        <div class="card shadow-sm custom-card">
                             <img src="<?= base_url('uploads/' . $document['berkas']); ?>" class="card-img-top custom-img" alt="<?= $document['judul'] ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $document['judul'] ?></h5>
@@ -84,11 +88,11 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <?php if (session('id_role') === '1'): ?>
-                                            <a href="<?= base_url('admin/knowledge/' . $document['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                                            <a href="<?= base_url('admin/knowledge/' . $id_dokumen) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
                                         <?php elseif (session('id_role') === '2'): ?>
-                                            <a href="<?= base_url('uploader/knowledge/' . $document['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                                            <a href="<?= base_url('uploader/knowledge/' . $id_dokumen) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
                                         <?php else: ?>
-                                            <a href="<?= base_url('knowledge/' . $document['id_dokumen']) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
+                                            <a href="<?= base_url('knowledge/' . $id_dokumen) ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Lihat</a>
                                         <?php endif; ?>
                                     </div>
                                     <small class="text-muted">9 mins</small>
@@ -103,22 +107,17 @@
 </div>
 
 <!-- JavaScript untuk menetapkan tinggi yang sama ke kolom-kolom dalam satu baris -->
-<script>
-    const rows = document.querySelectorAll('.row'); // Pilih semua baris
-    rows.forEach(row => {
-        const columns = row.querySelectorAll('.col-md-4'); // Pilih semua kolom dalam satu baris
-        let maxHeight = 0;
-        columns.forEach(col => {
-            const cardBody = col.querySelector('.card-body');
-            if (cardBody.clientHeight > maxHeight) {
-                maxHeight = cardBody.clientHeight;
-            }
-        });
-        columns.forEach(col => {
-            const cardBody = col.querySelector('.card-body');
-            cardBody.style.height = `${maxHeight}px`; // Setel tinggi kolom-kolom dalam satu baris menjadi tinggi maksimum
-        });
-    });
-</script>
+<style>
+    .custom-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Setel tinggi kartu menjadi 100% tinggi parentnya */
+}
+
+.custom-card .card-img-top {
+    height: 200px; /* Sesuaikan tinggi gambar sesuai kebutuhan */
+}
+
+</style>
 
 <?php $this->endSection(); ?>

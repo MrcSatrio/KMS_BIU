@@ -5,8 +5,11 @@
 <div class="container">
         <div class="upload-form">
             <form action="<?php echo base_url('uploader/upload'); ?>" method="post" enctype="multipart/form-data">
-                <label for="documentTitle">Judul Materi</label>
-                <input type="text" id="documentTitle" name="documentTitle" required>
+
+                <div class="mb-3">
+                    <label for="documentTitle" class="form-label">Judul Materi:</label>
+                    <input type="text" class="form-control" id="documentTitle" aria-describedby="documentTitle" name="documentTitle">
+                </div>
 
                 <label for="documentType">Kategori Materi:</label>
                 <select id="documentType" name="documentType" required>
@@ -16,15 +19,27 @@
                     <?php endforeach; ?>
                 </select>
 
-                <label for="documentVideo">Link Video:</label>
-                <input type="link" id="documentVideo" name="documentVideo">
 
+                <div class="mb-3">
+                    <label for="documentVideo" class="form-label">Link Video:</label>
+                    <input type="link" class="form-control" id="documentVideo" aria-describedby="documentVideo" name="documentVideo">
+                </div>
+
+                <div class="mb-3">
+                    <label for="documentPDF" class="form-label">Upload PDF</label>
+                    <input type="file" class="form-control" id="documentPDF" aria-describedby="documentPDF" name="documentPDF" accept=".pdf">
+                </div>
+
+                <div class="mb-3">
+                    <label for="documentFile" class="form-label">Thumbnail:</label>
+                    <input type="file" class="form-control" id="documentFile" aria-describedby="documentFile" name="documentFile" accept=".jpg,.png,.jpeg">
+                </div>
 
                 <label for="documentContent">Materi:</label>
-                <textarea id="mytextarea" name="documentContent"></textarea>
+                <textarea id="mytextarea" name="documentContent"><html></html></textarea>
 
-                <label for="formFile" class="form-label">Thumbnail:</label>
-                <input class="form-control" type="file" id="formFile" name="documentFile" accept=".jpg,.jpeg,.png,." required>
+
+
 
                 <input type="hidden" id="sub_kategori" name="sub_kategori" value="">
                 
@@ -39,4 +54,6 @@
         document.getElementById('sub_kategori').value = subKategoriValue;
     });
 </script>
+
+
 <?php $this->endSection(); ?>

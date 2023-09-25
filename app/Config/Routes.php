@@ -30,11 +30,13 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Public\Index::index');
-$routes->get('knowledge/(:num)', 'Public\index::knowledge/$1');
+$routes->get('knowledge/(:any)', 'Public\index::knowledge/$1');
 $routes->get('search/(:any)', 'Public\Search::search/$1');
 $routes->post('search', 'Public\Search::find');
 //autentikasi
 $routes->post('auth/login', 'Auth\Auth::login');
+$routes->get('auth/activated', 'Auth\Auth::activated');
+$routes->post('auth/activated', 'Auth\Auth::activated');
 $routes->post('auth/register', 'Auth\Auth::register');
 $routes->get('logout', 'Auth\Auth::logout');
 
@@ -98,7 +100,7 @@ $routes->group('admin', ['filter' => 'roleFilter'], function ($routes) {
     $routes->get('sub_kategori/update/(:num)', 'Admin\Sub_kategori::update/$1');
     $routes->post('sub_kategori/update_action', 'Admin\Sub_kategori::update_action');
 
-    $routes->get('knowledge/(:num)', 'Admin\index::knowledge/$1');
+    $routes->get('knowledge/(:any)', 'Admin\index::knowledge/$1');
 });
 
 
@@ -106,10 +108,10 @@ $routes->group('uploader', ['filter' => 'roleFilter'], function ($routes) {
     $routes->get('dashboard', 'Uploader\Index::index');
     $routes->get('upload', 'Uploader\Berkas::upload');
     $routes->post('upload', 'Uploader\Berkas::upload');
-    $routes->get('knowledge/(:num)', 'Uploader\index::knowledge/$1');
+    $routes->get('knowledge/(:any)', 'Uploader\index::knowledge/$1');
     $routes->get('materi', 'Uploader\Berkas::read');
-    $routes->get('materi/delete/(:num)', 'Uploader\Berkas::delete/$1');
-    $routes->get('materi/update/(:num)', 'Uploader\Berkas::update/$1');
+    $routes->get('materi/delete/(:any)', 'Uploader\Berkas::delete/$1');
+    $routes->get('materi/update/(:any)', 'Uploader\Berkas::update/$1');
     $routes->post('materi/update_action', 'Uploader\Berkas::update_action');
     $routes->get('materi', 'Uploader\Index::materi');
 
@@ -120,7 +122,7 @@ $routes->group('uploader', ['filter' => 'roleFilter'], function ($routes) {
     $routes->post('photo_profile/update_action', 'Uploader\Profile::photo_update_action');
 
     //event
-    $routes->get('event/update/(:num)', 'Uploader\Event::read/$1');
+    $routes->get('event/update/(:any)', 'Uploader\Event::read/$1');
     $routes->post('event/create', 'Uploader\Event::create');
     
 });

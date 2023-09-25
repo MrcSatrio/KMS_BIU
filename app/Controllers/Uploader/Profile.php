@@ -88,14 +88,14 @@ class Profile extends BaseController
     public function photo_profile($account_id)
     {
         $username = session()->get('username'); 
-        $profie = $this->akunModel->find($username);
+        $profile = $this->akunModel->find($username);
         $akun = $this->akunModel->find($account_id);
         $role = $this->roleModel->findall();
     
         // Ambil data kategori (mungkin perlu menyesuaikan nama model dan metode)
     
         $data = [
-            'profile' => $profie,
+            'profile' => $profile,
             'akun' => $akun,
             'role' => $role,
         ];

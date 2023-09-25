@@ -46,6 +46,7 @@ class Berkas extends BaseController
 
         return view('uploader/berkas/read', $data);
     }
+   
     public function upload()
 {
     if ($this->request->getMethod() === 'post') {
@@ -57,11 +58,12 @@ class Berkas extends BaseController
         ];
 
         $documentTitle = $this->request->getPost('documentTitle');
-        $documentVideo = $this->request->getPost('documentVideo');
         $documentType = $this->request->getPost('documentType');
         $documentContent = $this->request->getPost('documentContent');
         $sub_kategori = $this->request->getPost('sub_kategori');
         $documentFile = $this->request->getFile('documentFile');
+        $documentPDF = $this->request->getFile('documentPDF');
+        $documentVideo = $this->request->getPost('documentVideo');
 
         // Validasi input data
         if (!$this->validate($validationRules)) {
@@ -69,61 +71,95 @@ class Berkas extends BaseController
             session()->setFlashdata('error', $errors);
             return redirect()->to('uploader/upload'); // Redirect kembali ke halaman upload dengan pesan kesalahan dan data input sebelumnya.
         }
-        
-        
 
-        // Handle the uploaded document file
-        if ($documentFile->isValid() && !$documentFile->hasMoved()) {
-            $newFileName = $documentFile->getRandomName();
-            $documentFile->move(ROOTPATH . 'public/uploads', $newFileName);
+        // Handle the uploaded document (PDF)
+        if ($documentPDF->isValid() && !$documentPDF->hasMoved()) {
+            $newPDF = $documentPDF->getRandomName();
+            $documentPDF->move(ROOTPATH . 'public/uploads', $newPDF);
         } else {
-            return redirect()->back()->withInput()->with('error', 'Gagal mengunggah berkas.'); // Jika gagal mengunggah berkas, kembali ke halaman upload dengan pesan kesalahan.
+            $newPDF = ''; // Tetapkan nilai kosong jika tidak ada PDF diunggah
         }
 
-        $id_sorot = mt_rand(1000000, 9999999); // Menghasilkan nilai integer acak dalam rentang tertentu
-        $account_id = $_SESSION['account_id'];
+        // Handle the uploaded video link
+        if (!empty($documentVideo)) {
+            $newVideo = $documentVideo;
+        } else {
+            $newVideo = ''; // Tetapkan nilai kosong jika tidak ada link video diisi
+        }
+
+        // Memeriksa apakah keduanya kosong
+        if (empty($newPDF) && empty($newVideo)) {
+            // Tampilkan pesan kesalahan jika tidak ada file PDF atau video yang diunggah atau diisi
+            return redirect()->back()->withInput()->with('error', 'Gagal mengunggah berkas PDF atau mengisi link video.');
+        }
+
+        // Memeriksa berkas gambar yang diunggah
+        if ($documentFile->isValid() && !$documentFile->hasMoved()) {
+            $maxWidth = 1080;
+            $maxHeight = 1080;
+            $minHeight = 166;
+            
+            list($width, $height) = getimagesize($documentFile->getTempName());
+            
+            if ($width <= $maxWidth && $height <= $maxHeight && $height >= $minHeight) {
+                $newFileName = $documentFile->getRandomName();
+                $documentFile->move(ROOTPATH . 'public/uploads', $newFileName);
+            } else {
+                return redirect()->back()->withInput()->with('error', 'Resolusi berkas gambar tidak sesuai. Maksimum ' . $maxWidth . 'x' . $maxHeight . ' piksel diizinkan, dan tinggi minimum ' . $minHeight . ' piksel diizinkan.');
+            }
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Gagal mengunggah berkas gambar.');
+        }
+
+        // Siapkan data untuk dimasukkan ke dalam database
         $databerkas = [
             'judul' => $documentTitle,
-            'account_id' => $account_id,
+            'account_id' => session()->get('account_id'),
             'id_status' => 1,
             'id_event' => 0,
             'deskripsi' => $documentContent,
-            'video' => $documentVideo,
+            'video' => $newVideo,
             'id_kategori' => $documentType,
-            'id_sorot' => $id_sorot,
+            'id_sorot' => mt_rand(1000000, 9999999),
             'id_sub_kategori' => $sub_kategori,
-            'berkas' => $newFileName, // Simpan nama berkas dalam database
+            'berkas' => $newFileName,
+            'pdf' => $newPDF,
         ];
+
         $datasorotan = [
-            'id_sorot' => $id_sorot,
+            'id_sorot' => $databerkas['id_sorot'],
             'nama_sorot' => $documentTitle,
             'deskripsi_sorotan' => $documentContent,
             'status_sorot' => 0
         ];
-        
+
         $this->sorotModel->insert($datasorotan);
         $this->berkasModel->insert($databerkas);
-        
+
         session()->setFlashdata('success', 'Berkas berhasil diunggah.');
         return redirect()->to('uploader/materi');
     } else {
-        $username = session()->get('username'); 
+        $username = session()->get('username');
         $profile = $this->akunModel->find($username);
         $data = [
             'profile' => $profile,
             'kategori' => $this->kategoriModel
-            ->join('sub_kategori', 'sub_kategori.id_kategori = kategori.id_kategori')
-            ->where('kategori.nama_kategori !=', 'EVENT')
-            ->findAll(),
-
+                ->join('sub_kategori', 'sub_kategori.id_kategori = kategori.id_kategori')
+                ->where('kategori.nama_kategori !=', 'EVENT')
+                ->findAll(),
         ];
-        
+
         return view('uploader/upload', $data);
     }
 }
+
+
+    
+
 public function delete($id_dokumen)
 {
-    $dokumen = $this->berkasModel->find($id_dokumen);
+    $codedokumen = base64_decode($id_dokumen);
+    $dokumen = $this->berkasModel->find($codedokumen);
 
     if ($dokumen) {
         $this->berkasModel->delete($id_dokumen);
@@ -143,14 +179,15 @@ public function delete($id_dokumen)
 }
 public function update($id_dokumen)
 {
+    $codedokumen = base64_decode($id_dokumen);
 
-    $dokumen = $this->berkasModel->find($id_dokumen);
+    $dokumen = $this->berkasModel->find($codedokumen);
 
     // Ambil data kategori (mungkin perlu menyesuaikan nama model dan metode)
     $username = session()->get('username'); 
-    $profie = $this->akunModel->find($username);
+    $profile = $this->akunModel->find($username);
     $data = [
-        'profile' => $profie,
+        'profile' => $profile,
         'dokumen' => $dokumen,
         'kategori' => $this->kategoriModel
             ->join('sub_kategori', 'sub_kategori.id_kategori = kategori.id_kategori')
@@ -167,9 +204,9 @@ public function update_action()
         $validationRules = [
             'documentTitle' => 'required',
             'documentType' => 'required',
-            'documentVideo' => 'required',
             'documentContent'=> 'required',
             'sub_kategori'=> 'required',
+            
 
         ];
 
@@ -191,12 +228,14 @@ public function update_action()
                 'video' => $documentVideo,
                 'id_kategori' => $documentType,
                 'id_sub_kategori' => $sub_kategori,
+                'id_event' => 0,
+                
             ];
 
             // Update data subkategori berdasarkan $id_sub_kategori
             $this->berkasModel->update($id_dokumen, $berkas);
 
-            session()->setFlashdata('success', 'Kategori berhasil diperbarui.');
+            session()->setFlashdata('success', 'Berkas berhasil diperbarui.');
 
             // Mengalihkan pengguna ke halaman lain (misalnya halaman daftar kategori)
             return redirect()->to('uploader/materi');

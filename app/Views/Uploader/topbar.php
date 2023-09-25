@@ -30,10 +30,10 @@ $nama = $_SESSION['nama'];
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
         <?php endif; ?>
     </a>
+   
     <ul class="dropdown-menu dropdown-menu-end text-small shadow">
         <li><a class="dropdown-item">Hallo, <?php echo $nama ?></a></li>
         <li><a class="dropdown-item" href="<?php echo base_url('uploader/profile/update/' . $account_id); ?>">Profile</a></li>
-        <li><a class="dropdown-item" href="<?php echo base_url('uploader/photo_profile/update/' . $account_id); ?>">Ubah Foto Profile</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" id="logoutButton">Sign out</a></li>
     </ul>

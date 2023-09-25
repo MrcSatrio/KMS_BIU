@@ -5,8 +5,11 @@
 <div class="container">
         <div class="upload-form">
             <form action="<?php echo base_url('uploader/materi/update_action'); ?>" method="post" enctype="multipart/form-data">
-                <label for="documentTitle">Judul Materi</label>
-                <input type="text" id="documentTitle" name="documentTitle" value="<?php echo $dokumen['judul']?>" required>
+
+            <div class="mb-3">
+                    <label for="documentTitle" class="form-label">Link Video:</label>
+                    <input type="text" class="form-control" id="documentTitle" aria-describedby="documentTitle" name="documentTitle" value="<?php echo $dokumen['judul']?>">
+                </div>
 
                 <label for="documentType">Kategori Materi:</label>
                 <select id="documentType" name="documentType" required>
@@ -16,9 +19,10 @@
                     <?php endforeach; ?>
                 </select>
 
-                <label for="documentVideo">Link Video:</label>
-                <input type="link" id="documentVideo" name="documentVideo" value="<?php echo $dokumen['video']?>">
-
+                <div class="mb-3">
+                    <label for="documentVideo" class="form-label">Link Video:</label>
+                    <input type="link" class="form-control" id="documentVideo" aria-describedby="documentVideo" name="documentVideo" value="<?php echo $dokumen['video']?>">
+                </div>
 
                 <label for="documentContent">Materi:</label>
                 <textarea id="mytextarea" name="documentContent"> <?php echo $dokumen['deskripsi']?></textarea>

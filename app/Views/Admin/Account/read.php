@@ -15,6 +15,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Foto</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                     <td><?= $user['nama'] ?></td>
                     <td><?= $user['email'] ?></td>
                     <td><?= $user['role_name'] ?></td>
+                    <td><img src="<?= base_url('uploads/' . $user['foto_profile']); ?>" alt="mdo" width="32" height="32" class="rounded-circle"></td>
                     <td>
                     <a href="<?= base_url('admin/account/update/'.$user['account_id']) ?>" class="btn btn-success btn-sm update-link">
                             <i class="fas fa-edit"></i> Edit

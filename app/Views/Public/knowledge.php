@@ -63,6 +63,9 @@ if ($document['id_event'] == 0) { ?>
         <div class="col-md-4 text-md-right">
             <button class="btn btn-warning rounded-pill mt-2"><i class="fas fa-thumbs-up"></i> 0.0</button>
             <button class="btn btn-primary rounded-pill mt-2" id="share-button"><i class="fas fa-share"></i> Bagikan</button>
+            <?php if (!empty($document['pdf'])): ?>
+                  <button id="pdfButton" class="btn btn-danger rounded-pill mt-2"><i class="fas fa-file-pdf"></i> PDF</button>
+                <?php endif; ?>
         </div>
     </div>
     <div class="mt-4">
