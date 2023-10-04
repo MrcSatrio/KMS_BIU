@@ -23,7 +23,6 @@
     <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link" href="<?= base_url('/') ?>">Beranda</a></li>
         <li class="nav-item"><a class="nav-link" href="<?= base_url('search/Event') ?>">Event</a></li>
-
         <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="pengaturan" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Kategori
@@ -37,6 +36,7 @@
                         <a class="dropdown-item" href="<?php echo base_url('search/REKOGNISI'); ?>">Rekognisi</a>
                     </div>
                 </li>
+        <li class="nav-item"><a class="nav-link" href="<?= base_url('publikasi') ?>">Publikasi</a></li>
     </ul>
     
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Login</button>

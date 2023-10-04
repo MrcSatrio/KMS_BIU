@@ -36,6 +36,12 @@
                                 <label class="small mb-1" for="inputFirstName">Nama Lengkap</label>
                                 <input class="form-control" id="nama" name="nama" type="text" placeholder="Enter your first name" value="<?php echo $akun['nama']; ?>">
                             </div>
+
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName">ID Scholar</label>
+                                <input class="form-control" id="scholar" name="scholar" type="text" placeholder="Enter your ID Scholar" value="<?php echo $akun['scholar']; ?>">
+                            </div>
+                            
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Email</label>

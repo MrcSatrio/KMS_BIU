@@ -33,6 +33,7 @@ $routes->get('/', 'Public\Index::index');
 $routes->get('knowledge/(:any)', 'Public\index::knowledge/$1');
 $routes->get('search/(:any)', 'Public\Search::search/$1');
 $routes->post('search', 'Public\Search::find');
+$routes->get('publikasi', 'Public\Index::publikasi');
 //autentikasi
 $routes->post('auth/login', 'Auth\Auth::login');
 $routes->get('auth/activated', 'Auth\Auth::activated');

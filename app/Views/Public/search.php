@@ -25,7 +25,7 @@
                 <?php foreach ($berkas as $document): 
                     $dokumen = base64_encode($document['id_dokumen']);?>
                     <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
+                        <div class="card shadow-sm custom-card">
                             <img src="<?= base_url('uploads/' . $document['berkas']); ?>" class="card-img-top custom-img" alt="<?= $document['judul'] ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $document['judul'] ?></h5>
@@ -52,7 +52,18 @@
         </div>
     </div>
 </div>
+<style>
+    .custom-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Setel tinggi kartu menjadi 100% tinggi parentnya */
+}
 
+.custom-card .card-img-top {
+    height: 200px; /* Sesuaikan tinggi gambar sesuai kebutuhan */
+}
+
+</style>
 <!-- JavaScript untuk menetapkan tinggi yang sama ke kolom-kolom dalam satu baris -->
 <script>
     const rows = document.querySelectorAll('.row'); // Pilih semua baris

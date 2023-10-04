@@ -61,11 +61,11 @@ if ($document['id_event'] == 0) { ?>
             </div>
         </div>
         <div class="col-md-4 text-md-right">
-            <button class="btn btn-warning rounded-pill mt-2"><i class="fas fa-thumbs-up"></i> 0.0</button>
-            <button class="btn btn-primary rounded-pill mt-2" id="share-button"><i class="fas fa-share"></i> Bagikan</button>
-            <?php if (!empty($document['pdf'])): ?>
+        <?php if (!empty($document['pdf'])): ?>
                   <button id="pdfButton" class="btn btn-danger rounded-pill mt-2"><i class="fas fa-file-pdf"></i> PDF</button>
                 <?php endif; ?>
+            <button class="btn btn-primary rounded-pill mt-2" id="share-button"><i class="fas fa-share"></i> Bagikan</button>
+            
         </div>
     </div>
     <div class="mt-4">
@@ -149,7 +149,32 @@ if ($document['id_event'] == 0) { ?>
 
 
 <?php } ?>
+<script>
+    // Ambil referensi tombol PDF
+    var pdfButton = document.getElementById('pdfButton');
 
+    // Tambahkan event listener untuk mengunduh PDF saat tombol diklik
+    pdfButton.addEventListener('click', function() {
+      // Ganti URL di bawah ini dengan URL PDF yang benar
+      var pdfUrl = '<?= base_url('uploads/' . $document['pdf']); ?>';
+
+      // Buat elemen <a> untuk mengunduh PDF
+      var downloadLink = document.createElement('a');
+      downloadLink.href = pdfUrl;
+      downloadLink.target = '_blank'; // Buka di tab/baru jika Anda inginkan
+      downloadLink.download = '<?= $document['judul'] ?>.pdf'; // Ganti 'nama_file.pdf' sesuai dengan nama file PDF Anda
+      downloadLink.style.display = 'none'; // Sembunyikan elemen <a>
+
+      // Tambahkan elemen <a> ke dalam dokumen
+      document.body.appendChild(downloadLink);
+
+      // Klik elemen <a> untuk memulai unduhan
+      downloadLink.click();
+
+      // Hapus elemen <a> setelah unduhan selesai
+      document.body.removeChild(downloadLink);
+    });
+  </script>
 <script>
 // Tanggapan saat tombol "Bagikan" di klik
 document.getElementById("share-button").addEventListener("click", function() {

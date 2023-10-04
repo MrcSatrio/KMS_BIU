@@ -44,6 +44,7 @@ class Profile extends BaseController
                 'username' => 'required',
                 'email' => 'required',
                 'account_id' => 'required',
+                'scholar' => 'required',
             ];
     
             if ($this->validate($validationRules)) {
@@ -52,12 +53,14 @@ class Profile extends BaseController
                 $username = $this->request->getPost('username');
                 $email = $this->request->getPost('email');
                 $account_id = $this->request->getPost('account_id');
-    
+                $scholar = $this->request->getGetPost('scholar');
+
                 // Persiapan data akun dalam bentuk array
                 $akun = [
                     'nama' => $nama,
                     'username' => $username,
                     'email' => $email,
+                    'scholar' => $scholar,
                 ];
     
                 // Update data akun berdasarkan $account_id

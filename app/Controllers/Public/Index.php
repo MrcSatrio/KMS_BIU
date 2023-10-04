@@ -46,6 +46,21 @@ class Index extends BaseController
         return view('public/index', $data);
     }
 
+    public function publikasi()
+    {
+        $username = session()->get('username'); 
+        $akun = $this->akunModel->find($username);
+        $data =
+        [
+            'akun' => $akun,
+            'berkas' => $this->akunModel
+                ->join('status_akun', 'akun.id_status_akun = status_akun.id_status_akun')
+                ->where('id_role', '2')
+                ->findAll(),
+        ];
+        return view('public/publikasi', $data);
+    }
+
     public function knowledge($id_dokumen)
 {
     // Dekode $id_dokumen dari Base64
